@@ -7,7 +7,14 @@
 
 //#include "split.h"
 
-
+/*
+* nbLettreAvantSeparateur	: permet de retourner le nombre de caractère d'un mot dans une phrase
+*  param char *separateur	: un séparateur de mots
+*  param char *phrase		: une chaine de caractère
+*  param int numeroMot 		: place du mot
+*  return int cptlettre		: nombre de lettre dans un mot
+*   
+*/
 int nbLettreAvantSeparateur(char *separateur, char*phrase, int numeroMot){
 	int cptlettre = 0;
 	while(phrase[cptlettre]!=' '&&'\0'!=phrase[cptlettre]!='\0')
@@ -17,14 +24,14 @@ int nbLettreAvantSeparateur(char *separateur, char*phrase, int numeroMot){
 
 
 /*
-* Split 				: permetant de séparer une chaine de caracteres en un tableau de chaines de caracteres.
-*  param chaine 		: est la chaine de caractère que l'on veut séparer
-*  param separateur		: de séparation de la chaine de caractères
-*  return rtnchaine 	: tableau de chaines de chaines de caractères
+* Split 					: permetant de séparer une chaine de caracteres en un tableau de chaines de caracteres.
+*  param char *chaine 		: est la chaine de caractère que l'on veut séparer
+*  param char *separateur 	: chaine de caractères de séparation de la chaine de caractères
+*  return rtnchaine 		: tableau de chaines de chaines de caractères
 * 
 *
-*  var char* token		: permet de récuperer les mots
-*  var int ligne		: compteur de ligne
+*  var char* token			: permet de récuperer les mots
+*  var int ligne			: compteur de ligne
 */
 
 char **split(char *chaine, char* separateur, int nbcolonne){
@@ -70,7 +77,7 @@ char **split(char *chaine, char* separateur, int nbcolonne){
 * Fonction de test();
 *
 */
-void testsplit(){
+void testsplit(){	
 	char chaine[] = "coucou je suis fort";
 	printf("%s\n\n", chaine);
 	printf("Alloue\n\n");
