@@ -5,7 +5,7 @@
 #include <string.h>
 
 
-//#include "split.h"
+#include "/headers/split.h"
 
 /*
 * nbLettreAvantSeparateur	: permet de retourner le nombre de caractère d'un mot dans une phrase
