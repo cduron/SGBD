@@ -2,8 +2,8 @@
  * Création des Structures
  */
 
-#include "PageId.h"
 #include <stdio.h>
+#include "/headers/PageId.h"
 
 int CreateFile(int FileId){
 	char fileID[100]=(char)FileId; //on passe FileId en chaine de charactere

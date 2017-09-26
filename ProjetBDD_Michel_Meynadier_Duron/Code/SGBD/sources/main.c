@@ -3,8 +3,8 @@
  */
 #include <stdio.h>
 #include <string.h>
-#include "menu.h"
-#include "RelSchema.h"
+#include "/headers/menu.h"
+#include "/headers/RelSchema.h"
 
 
 int main (){
