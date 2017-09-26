@@ -3,6 +3,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib>
 #include "/headers/PageId.h"
 
 int CreateFile(int FileId){
@@ -32,21 +33,49 @@ int AddPage(int FileIdx){
     return 0;
 
 }
-/*
+
+
+/**
  * Fonction permettant de remplir l'argument Buffer avec le contenu
  * de la page identifée par PageId
 */
 void ReadPage(int PageId, unsigned char *buffer){
   FILE *fic;
+
+	//on passe FileId en chaine de charactere
+	char fileID[100]=(char)FileIdx;
+	char adresse[100]="DB/Data_";
+	char adresse2[4]=".dat";
+
+	//On concatene por obtenir le nom & l'adresse du fichier à ouvrir
+	char ad = strcat(adresse, fileID);
+	ad = strcat(ad, adresse2);
+
+	//Compteur pour le Buffer
+	int i;
+	//Variable pour stocker le caractere
+	int c;
+
   // Ouverture du fichier d'identifiant PageId
   // Droit en Lecture seulement (r) Fichier binaire (b)
-  fic = fopen(PageId.dat,"rb");
+  fic = fopen(ad,"rb");
+
   // Vérification de la bonne ouverture du fichier
   if(fic==NULL){
     printf("Problème lors de l'ouverture du fichier");
     exit(0);
   }
 
+	// On lit le contenu du fichier jusqu'au caractere final : EOF
+	while (c=fgetc(fic)!=EOF) {
+		// On affecte cette valeur au Buffer
+		buffer[i]=c;
+		i++;
+	}
+
   // Fermeture du fichier
   fclose(fic);
+
+	//Sortie
+	return (EXIT_SUCCESS);
 }
