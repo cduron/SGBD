@@ -40,12 +40,11 @@ int AddPage(int FileIdx){
  * de la page identifée par PageId
 */
 void ReadPage(int PageId, unsigned char *buffer){
-  FILE *fic;
 
 	//on passe FileId en chaine de charactere
 	char fileID[100]=(char)FileIdx;
 	char adresse[100]="DB/Data_";
-	char adresse2[4]=".dat";
+	char adresse2[4]=".rf";
 
 	//On concatene por obtenir le nom & l'adresse du fichier à ouvrir
 	char ad = strcat(adresse, fileID);
@@ -56,6 +55,7 @@ void ReadPage(int PageId, unsigned char *buffer){
 	//Variable pour stocker le caractere
 	int c;
 
+	FILE *fic;
   // Ouverture du fichier d'identifiant PageId
   // Droit en Lecture seulement (r) Fichier binaire (b)
   fic = fopen(ad,"rb");
@@ -78,4 +78,45 @@ void ReadPage(int PageId, unsigned char *buffer){
 
 	//Sortie
 	return (EXIT_SUCCESS);
+}
+
+/**
+	* Fonction permettant l'écriture du contenu de l'argument Buffer dans
+	* Le fichier dont l'id correspond à l'argument PageId
+*/
+void WritePage(int PageId, unsigned char *Buffer){
+	//on passe FileId en chaine de charactere
+	char fileID[100]=(char)FileIdx;
+	char adresse[100]="DB/Data_";
+	char adresse2[4]=".rf";
+
+	//On concatene por obtenir le nom & l'adresse du fichier à ouvrir
+	char ad = strcat(adresse, fileID);
+	ad = strcat(ad, adresse2);
+
+	// Ouverture du fichier binaire (b) en mode écriture (w)
+	FILE *fic;
+	fic = fopen(ad,"wb");
+
+	// Vérification de la bonne ouverture du fichier
+	if(fic==NULL){
+    printf("Problème lors de l'ouverture du fichier");
+    exit(0);
+  }
+
+	//Compteur pour parcourir le Buffer
+	int i;
+	//Variable pour stocker le caractere à écrire dans le fichier
+	int c;
+
+	//On parcourt le Buffer, jusqu'à ce qu'on obtienne le caractere de Fin de chaîne
+	while (c= (*(Buffer+i)) != '\0') {
+		fputc(c,fic);
+		i++;
+	}
+
+	//Fermeture du fichier
+	fclose(fic);
+	
+	return(EXIT_SUCCESS);
 }
