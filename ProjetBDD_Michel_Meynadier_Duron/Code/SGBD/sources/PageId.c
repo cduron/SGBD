@@ -117,6 +117,6 @@ void WritePage(int PageId, unsigned char *Buffer){
 
 	//Fermeture du fichier
 	fclose(fic);
-	
+
 	return(EXIT_SUCCESS);
 }
