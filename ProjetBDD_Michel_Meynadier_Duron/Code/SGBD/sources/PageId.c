@@ -11,14 +11,25 @@
 *  param int FileIdx		: identifiant de la page à créer
 *   
 */
-int CreateFile(int FileId){
-	char fileID[100]=(char)FileId; //on passe FileId en chaine de charactere
+void CreateFile(int FileId){
+	FILE* fh;
+	//on passe FileId en chaine de caracteres
+	char fileID[100]=(char)FileId;
 	char adresse[100]="DB/Data_";
-	char adresse2[4]=".rf";
 	strcat(adresse, fileID);
-	strcat(adresse, adresse2); //on creer une chaine de caracteres correspondant à l'adresse du fichier
-	FILE* fh = fopen(adresse, "wb"); //on créer le fichier binaire d'adresse Data_FileId.rf dans le répertoire DB
-	return 0;
+	//on créé une chaine de caracteres correspondant à l'adresse du fichier
+	strcat(adresse, ".rf");
+	//on créé et on ouvre le fichier binaire d'adresse Data_FileId.rf dans le répertoire DB
+	fh = fopen(adresse, "wb");
+
+	// Vérification de la bonne ouverture du fichier
+  	if(fh==NULL){
+    		printf("Problème lors de l'ouverture du fichier");
+    		exit(0);
+  	}
+	// Fermeture du fichier
+	fclose(fh);
+	return(EXIT_SUCCESS);
 }
 
 /*
@@ -26,22 +37,21 @@ int CreateFile(int FileId){
 *  param int FileIdx		: identifiant de la page
 *   
 */
-int AddPage(int FileIdx){
-	FILE* fichier = NULL;
+void AddPage(int FileIdx){
+	FILE* fichier;
 	char fileID[100]=(char)FileIdx; //on passe FileIdx en chaine de charactere
 	char adresse[100]="DB/Data_";
-	char adresse2[4]=".rf";
-	fichier = fopen(adresse, "rbw"); //on ouvre le fichier correspondant
+	strcat(adresse, fileID);
+	//on créé une chaine de caracteres correspondant à l'adresse du fichier
+	strcat(adresse, ".rf");
+	fichier = fopen(adresse, "r+b"); //on ouvre le fichier correspondant
 
-    if (fichier != NULL){
+    	if (fichier == NULL){
+		printf("Impossible d'ouvrir le fichier");
+		exit(0);
+   	}
 
-    }
-
-    else {
-      printf("Impossible d'ouvrir le fichier");
-    } //si l'adresse ne correspond a rien on envoie un message d'erreur
-    return 0;
-
+    	return (EXIT_SUCCESS);
 }
 
 /*
@@ -58,8 +68,8 @@ void ReadPage(int PageId, unsigned char *buffer){
 	char adresse2[4]=".rf";
 
 	//On concatene por obtenir le nom & l'adresse du fichier à ouvrir
-	char ad = strcat(adresse, fileID);
-	ad = strcat(ad, adresse2);
+	strcat(adresse, fileID);
+	strcat(adresse, adresse2);
 
 	//Compteur pour le Buffer
 	int i;
@@ -69,7 +79,7 @@ void ReadPage(int PageId, unsigned char *buffer){
 	FILE *fic;
   	// Ouverture du fichier d'identifiant PageId
   	// Droit en Lecture seulement (r) Fichier binaire (b)
-  	fic = fopen(ad,"rb");
+  	fic = fopen(adresse,"rb");
 
   	// Vérification de la bonne ouverture du fichier
   	if(fic==NULL){
@@ -107,9 +117,9 @@ void WritePage(int PageId, unsigned char *Buffer){
 	char ad = strcat(adresse, fileID);
 	ad = strcat(ad, adresse2);
 
-	// Ouverture du fichier binaire (b) en mode écriture (w)
+	// Ouverture du fichier binaire (b) en mode ajout (a)
 	FILE *fic;
-	fic = fopen(ad,"wb");
+	fic = fopen(ad,"ab");
 
 	// Vérification de la bonne ouverture du fichier
 	if(fic==NULL){
