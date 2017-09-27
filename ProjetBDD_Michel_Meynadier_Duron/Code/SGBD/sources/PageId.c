@@ -6,6 +6,7 @@
 #include <stdlib>
 #include "/headers/PageId.h"
 
+
 /*
 *  CreateFile			: créé un fichier Data_FileId.rf en vue d’y stocker des records par la suite.
 *  param int FileIdx		: identifiant de la page à créer
@@ -20,6 +21,7 @@ void CreateFile(int FileId){
 	//on créé une chaine de caracteres correspondant à l'adresse du fichier
 	strcat(adresse, ".rf");
 	//on créé et on ouvre le fichier binaire d'adresse Data_FileId.rf dans le répertoire DB
+	// Si le fichier n'existe pas, en mode (w) le fichier est créé
 	fh = fopen(adresse, "wb");
 
 	// Vérification de la bonne ouverture du fichier
@@ -39,7 +41,7 @@ void CreateFile(int FileId){
 */
 void AddPage(int FileIdx){
 	FILE* fichier;
-	char fileID[100]=(char)FileIdx; //on passe FileIdx en chaine de charactere
+	char fileID[100]=(char)FileIdx; //on passe FileIdx en chaine de caractere
 	char adresse[100]="DB/Data_";
 	strcat(adresse, fileID);
 	//on créé une chaine de caracteres correspondant à l'adresse du fichier
