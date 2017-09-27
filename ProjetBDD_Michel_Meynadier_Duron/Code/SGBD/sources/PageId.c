@@ -6,6 +6,11 @@
 #include <stdlib>
 #include "/headers/PageId.h"
 
+/*
+*  CreateFile			: créé un fichier Data_FileId.rf en vue d’y stocker des records par la suite.
+*  param int FileIdx		: identifiant de la page à créer
+*   
+*/
 int CreateFile(int FileId){
 	char fileID[100]=(char)FileId; //on passe FileId en chaine de charactere
 	char adresse[100]="DB/Data_";
@@ -16,6 +21,11 @@ int CreateFile(int FileId){
 	return 0;
 }
 
+/*
+*  AddPage			: rajoute une page au fichier spécifié par le champ FileIdx 
+*  param int FileIdx		: identifiant de la page
+*   
+*/
 int AddPage(int FileIdx){
 	FILE* fichier = NULL;
 	char fileID[100]=(char)FileIdx; //on passe FileIdx en chaine de charactere
@@ -34,10 +44,11 @@ int AddPage(int FileIdx){
 
 }
 
-
-/**
- * Fonction permettant de remplir l'argument Buffer avec le contenu
- * de la page identifée par PageId
+/*
+*  ReadPage			: permet de remplir l'argument Buffer avec le contenu d'une page
+*  param int PageId		: identifiant de la page
+*  param unsigned char *buffer	: un buffer qui contiendra le contenu de la page d'identifiant PageId
+*   
 */
 void ReadPage(int PageId, unsigned char *buffer){
 
@@ -56,15 +67,15 @@ void ReadPage(int PageId, unsigned char *buffer){
 	int c;
 
 	FILE *fic;
-  // Ouverture du fichier d'identifiant PageId
-  // Droit en Lecture seulement (r) Fichier binaire (b)
-  fic = fopen(ad,"rb");
+  	// Ouverture du fichier d'identifiant PageId
+  	// Droit en Lecture seulement (r) Fichier binaire (b)
+  	fic = fopen(ad,"rb");
 
-  // Vérification de la bonne ouverture du fichier
-  if(fic==NULL){
-    printf("Problème lors de l'ouverture du fichier");
-    exit(0);
-  }
+  	// Vérification de la bonne ouverture du fichier
+  	if(fic==NULL){
+    		printf("Problème lors de l'ouverture du fichier");
+    		exit(0);
+  	}
 
 	// On lit le contenu du fichier jusqu'au caractere final : EOF
 	while (c=fgetc(fic)!=EOF) {
@@ -73,16 +84,18 @@ void ReadPage(int PageId, unsigned char *buffer){
 		i++;
 	}
 
-  // Fermeture du fichier
-  fclose(fic);
+  	// Fermeture du fichier
+  	fclose(fic);
 
 	//Sortie
 	return (EXIT_SUCCESS);
 }
 
-/**
-	* Fonction permettant l'écriture du contenu de l'argument Buffer dans
-	* Le fichier dont l'id correspond à l'argument PageId
+/*
+*  WritePage			: permet l'écriture du contenu de l'argument Buffer dans le fichier dont l'id correspond à l'argument PageId 
+*  param int PageId		: identifiant de la page
+*  param unsigned char *buffer	: un buffer
+*   
 */
 void WritePage(int PageId, unsigned char *Buffer){
 	//on passe FileId en chaine de charactere
@@ -100,9 +113,9 @@ void WritePage(int PageId, unsigned char *Buffer){
 
 	// Vérification de la bonne ouverture du fichier
 	if(fic==NULL){
-    printf("Problème lors de l'ouverture du fichier");
-    exit(0);
-  }
+    		printf("Problème lors de l'ouverture du fichier");
+    		exit(0);
+  	}
 
 	//Compteur pour parcourir le Buffer
 	int i;
