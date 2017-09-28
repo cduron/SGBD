@@ -3,23 +3,25 @@
  */
 
 #include <stdio.h>
-#include <stdlib>
-#include "/headers/PageId.h"
+#include <stdlib.h>
+#include <string.h>
+#include "../headers/PageId.h"
 
 
 /*
 *  CreateFile			: créé un fichier Data_FileId.rf en vue d’y stocker des records par la suite.
-*  param int FileIdx		: identifiant de la page à créer
-*   
+*  param int FileIdx	: identifiant de la page à créer
+*
 */
 void CreateFile(int FileId){
 	FILE* fh;
-	//on passe FileId en chaine de caracteres
-	char fileID[100]=(char)FileId;
-	char adresse[100]="DB/Data_";
-	strcat(adresse, fileID);
-	//on créé une chaine de caracteres correspondant à l'adresse du fichier
+	//on passe FileId en chaine de caracteres eton créé une chaine de caracteres correspondant à l'adresse du fichier
+	char adresse[100]= "../DB/Data_";
+	char FileIdChar[12];
+    sprintf(FileIdChar, "%d", FileId);
+	strcat(adresse,FileIdChar);
 	strcat(adresse, ".rf");
+
 	//on créé et on ouvre le fichier binaire d'adresse Data_FileId.rf dans le répertoire DB
 	// Si le fichier n'existe pas, en mode (w) le fichier est créé
 	fh = fopen(adresse, "wb");
@@ -35,43 +37,40 @@ void CreateFile(int FileId){
 }
 
 /*
-*  AddPage			: rajoute une page au fichier spécifié par le champ FileIdx 
-*  param int FileIdx		: identifiant de la page
-*   
+*  AddPage			    : rajoute une page au fichier spécifié par le champ FileIdx
+*  param int FileIdx	: identifiant de la page
+*
 */
-void AddPage(int FileIdx){
+void AddPage(int FileId){
 	FILE* fichier;
-	char fileID[100]=(char)FileIdx; //on passe FileIdx en chaine de caractere
-	char adresse[100]="DB/Data_";
-	strcat(adresse, fileID);
+	printf("testAdd");
+	//on passe FileIdx en chaine de caractere
+	char adresse[]= "DB/Data_";
+	strcat(adresse,(char)FileId);
+	strcat(adresse, ".rf");
 	//on créé une chaine de caracteres correspondant à l'adresse du fichier
 	strcat(adresse, ".rf");
 	fichier = fopen(adresse, "r+b"); //on ouvre le fichier correspondant
 
-    	if (fichier == NULL){
+  if (fichier == NULL){
 		printf("Impossible d'ouvrir le fichier");
 		exit(0);
-   	}
-
-    	return (EXIT_SUCCESS);
+ 	}
+	return (EXIT_SUCCESS);
 }
 
 /*
-*  ReadPage			: permet de remplir l'argument Buffer avec le contenu d'une page
-*  param int PageId		: identifiant de la page
-*  param unsigned char *buffer	: un buffer qui contiendra le contenu de la page d'identifiant PageId
-*   
+*  ReadPage			            : permet de remplir l'argument Buffer avec le contenu d'une page
+*  param int FileId		        : identifiant de la page
+*  param unsigned char *buffer	: un buffer qui contiendra le contenu de la page d'identifiant FileId
+*
 */
-void ReadPage(int PageId, unsigned char *buffer){
+void ReadPage(int FileId, unsigned char *buffer){
 
 	//on passe FileId en chaine de charactere
-	char fileID[100]=(char)FileIdx;
-	char adresse[100]="DB/Data_";
-	char adresse2[4]=".rf";
-
-	//On concatene por obtenir le nom & l'adresse du fichier à ouvrir
-	strcat(adresse, fileID);
-	strcat(adresse, adresse2);
+	char adresse[]= "DB/Data_";
+	strcat(adresse,(char)FileId);
+	strcat(adresse, ".rf");
 
 	//Compteur pour le Buffer
 	int i;
@@ -79,15 +78,16 @@ void ReadPage(int PageId, unsigned char *buffer){
 	int c;
 
 	FILE *fic;
-  	// Ouverture du fichier d'identifiant PageId
-  	// Droit en Lecture seulement (r) Fichier binaire (b)
-  	fic = fopen(adresse,"rb");
+	printf("TestReadFile");
+	// Ouverture du fichier d'identifiant PageId
+	// Droit en Lecture seulement (r) Fichier binaire (b)
+	fic = fopen(adresse,"rb");
 
-  	// Vérification de la bonne ouverture du fichier
-  	if(fic==NULL){
-    		printf("Problème lors de l'ouverture du fichier");
-    		exit(0);
-  	}
+	// Vérification de la bonne ouverture du fichier
+	if(fic==NULL){
+		printf("Problème lors de l'ouverture du fichier");
+		exit(0);
+	}
 
 	// On lit le contenu du fichier jusqu'au caractere final : EOF
 	while (c=fgetc(fic)!=EOF) {
@@ -96,38 +96,34 @@ void ReadPage(int PageId, unsigned char *buffer){
 		i++;
 	}
 
-  	// Fermeture du fichier
-  	fclose(fic);
+	// Fermeture du fichier
+	fclose(fic);
 
 	//Sortie
 	return (EXIT_SUCCESS);
 }
 
 /*
-*  WritePage			: permet l'écriture du contenu de l'argument Buffer dans le fichier dont l'id correspond à l'argument PageId 
-*  param int PageId		: identifiant de la page
+*  WritePage			: permet l'écriture du contenu de l'argument Buffer dans le fichier dont l'id correspond à l'argument FileId
+*  param int FileIdeId		: identifiant de la page
 *  param unsigned char *buffer	: un buffer
-*   
+*
 */
-void WritePage(int PageId, unsigned char *Buffer){
-	//on passe FileId en chaine de charactere
-	char fileID[100]=(char)FileIdx;
-	char adresse[100]="DB/Data_";
-	char adresse2[4]=".rf";
-
-	//On concatene por obtenir le nom & l'adresse du fichier à ouvrir
-	char ad = strcat(adresse, fileID);
-	ad = strcat(ad, adresse2);
-
+void WritePage(int FileId, unsigned char *Buffer){
+	//on passe FileId en chaine de charactere et on concatene
+	char adresse[]= "DB/Data_";
+	strcat(adresse,(char)FileId);
+	strcat(adresse, ".rf");
+    printf("TestWritePage");
 	// Ouverture du fichier binaire (b) en mode ajout (a)
 	FILE *fic;
-	fic = fopen(ad,"ab");
+	fic = fopen(adresse,"ab");
 
 	// Vérification de la bonne ouverture du fichier
 	if(fic==NULL){
-    		printf("Problème lors de l'ouverture du fichier");
-    		exit(0);
-  	}
+  		printf("Problème lors de l'ouverture du fichier");
+  		exit(0);
+	}
 
 	//Compteur pour parcourir le Buffer
 	int i;
@@ -145,3 +141,13 @@ void WritePage(int PageId, unsigned char *Buffer){
 
 	return(EXIT_SUCCESS);
 }
+
+
+//void main(){
+	//int FileId = 1;
+	//unsigned char * Buffer = NULL;
+	//CreateFile(FileId);
+	//AddPage(FileId);
+	//ReadPage(FileId, Buffer);
+	//WritePage(Buffer, FileId);
+//}
