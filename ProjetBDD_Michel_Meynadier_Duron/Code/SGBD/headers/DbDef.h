@@ -1,18 +1,28 @@
 #ifndef DbDef_H_
 #define DbDef_H_
+#include "../headers/RelDef.h"
+
+
+/* structure element qui simule une liste de structures de type DbDef */
+struct element {
+	/* numero de l'element de la "liste" */
+    int val;
+    /* objet DbDef a cette instance de la "liste" */
+    struct Dbdef *present;
+    /* prochain objet de la "liste" */
+    struct element *nxt;
+};
+
+
+
 
 /* Structure DbDef listant les relations existantes dans la DB */
 struct DbDef {
-	/* Array des relations existantes */
-//	struct list liste_relations;
+	/* "liste" des relations existantes */
+	struct element liste_relations;
 	/* nombres de relations */
-	int compteurRelations;
+	int compteur_relations;
 };
 
-struct list
-    {
-        struct  RelDef ;
-        struct list *next;
-    };
 
 #endif /* DBDEF_H_ */

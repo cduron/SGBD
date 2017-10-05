@@ -9,13 +9,13 @@
 #define RELSCHEMA_H_
 
 /* Structure d'une relation */
-typedef struct RelSchema {
+struct RelSchema {
 	/*Nom de la relation ex: CREATE */
-	char *nom;
+	char nom;
 	/* Nombre maximum d'argument du Schema */
 	int nombre_colonnes;
 	/* Type de colonnes */ 
-	char *type_colonnes;
+	char type_colonnes;
 };
 
 

@@ -2,16 +2,25 @@
  * Création des Structures
  */
 
-//#include "/headers/DbDef.h"
-//#include <stdio.h>
-
+#include "../headers/RelSchema.h"
+#include "../headers/RelDef.h"
+#include "../headers/DbDef.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 
-int main(){
+int testDbDef(){
+
+	struct RelSchema k = {"Roger", 3, "Santa"};
+	struct RelDef a={k, 6};
+	struct element l={1, NULL, NULL};
+	struct DbDef def={l, 3};
+	printf("compteur de relations: %d\n", def.compteur_relations);
 
     return 0;
+}
 
+int main(){
+	return 0;
 }
