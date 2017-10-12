@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../headers/PageId.h"
+#include "../headers/Constante.h"
 
 
 /*
@@ -13,15 +14,12 @@
 *  param int FileIdx	: identifiant de la page à créer
 *
 */
-void createFile(int FileId){
+void createFile(int fileId){
 	FILE* fh;
 	//on passe FileId en chaine de caracteres eton créé une chaine de caracteres correspondant à l'adresse du fichier
-	char adresse[100]= "../DB/Data_";
-	char FileIdChar[12];
-    	sprintf(FileIdChar, "%d", FileId);
-	strcat(adresse,FileIdChar);
-	strcat(adresse, ".rf");
 
+	char * adresse = malloc(sizeof(char)*100);
+	nameFile(fileId, adresse);
 	//on créé et on ouvre le fichier binaire d'adresse Data_FileId.rf dans le répertoire DB
 	// Si le fichier n'existe pas, en mode (a+) le fichier est créé
 	fh = fopen(adresse, "a+b");
@@ -44,8 +42,11 @@ void createFile(int FileId){
 int addPage(int fileIdx){
 	//on ouvre le fichier correspondant
 	FILE* fichier;
-	char * adresse = nameFile(fileIdx);
+	char * adresse = malloc(sizeof(char)*100);
+	nameFile(fileIdx, adresse);
 	fichier = fopen(adresse, "a+b"); 
+
+	printf("%s", adresse);
 		
 
 	//Vérification de l'ouverture du fichier
@@ -56,29 +57,26 @@ int addPage(int fileIdx){
 
 	//On se positionne à la fin du fichier
 	fseek(fichier, 0, SEEK_END);
+	long int tailleFichier = ftell(fichier);
 
 	// Création d'un tableau contenant les (4096-1) bytes (un char = un byte) à ajouter à la fin du fichier pour créer le bloc de 4Ko
 	char * ptab;
-	ptab = malloc(4095 * sizeof(char));
+	ptab = calloc(TAILLE, sizeof(char));
 
 	//Ecriture dans le fichier binaire	
-	fwrite( ptab , sizeof(char) , 4095 , fichier);
+	fwrite( ptab , sizeof(char) , TAILLE , fichier);
 
-	//Ajout du séparateur '$' à la fin de la page
-	char separateur = '$';
-	fwrite( &separateur , sizeof(char) , 1 , fichier);
- 
 	PageId page;
-	page.FileId = fileIdx;
-	page.Idx =  ;
-	
+	page.fileId = fileIdx;
+	page.idX =  tailleFichier/TAILLE;
+
 	FILE* stockID;
 	createFile(0);
 	stockID = fopen("../DB/Data_0.rf", "a+b");
-	fprintf(stockID,"%d %d", page.
-	return page.Idx;
-}
+	fprintf(stockID,"%d%d", page.fileId, page.idX);
+	return page.idX;
 
+}
 /*
 *  readPage 			: permet de remplir l'argument Buffer avec le contenu d'une page
 *  param PageId page		: Page à parcourir -> Identifiant du fichier & de la page 
@@ -89,15 +87,13 @@ int addPage(int fileIdx){
 void readPage(PageId page, unsigned char *buffer){
 
 	//on passe FileId en chaine de charactere
-	char adresse[]= "DB/Data_";
-	strcat(adresse,(char)page.FileId);
-	strcat(adresse, ".rf");
-
+	char * adresse = malloc(sizeof(char)*100);
+	nameFile(page.fileId, adresse);
 	//Compteur pour le Buffer
 	int i=0;
 	//Variable pour stocker le caractere
 	int c;
-	
+
 	// Trouver le début de la page PageId
 	// Parcourir la page d'identifiant PageId
 	// Remplir le buffer
@@ -106,24 +102,21 @@ void readPage(PageId page, unsigned char *buffer){
 	FILE *fic;
 	// Ouverture du fichier d'identifiant PageId
 	// Droit en Lecture seulement (r) Fichier binaire (b)
-	fic = fopen(adresse,"rb");
+	fic = fopen(adresse,"r+b");
 	
 	// Vérification de la bonne ouverture du fichier
 
 	if(fic==NULL){
-		printf("Problème lors de l'ouverture du fichier");
+		printf("Error access readPage");
 		exit(0);
 	}
 
-	fseek(fic,4096*page.idX,0,SEEK_SET);
+	fseek(fic,TAILLE*page.idX,SEEK_SET);
 
-	// On lit le contenu du fichier jusqu'au caractere final : EOF
-	while (c=fgetc(fic)!='$') {
-		// On affecte cette valeur au Buffer
-		buffer[i]=c;
-		i++;
+	for (int i = 0; i< TAILLE; i++){
+		*(buffer+i)=fgetc(fic);
+		printf("%c", buffer[i]);
 	}
-
 	// Fermeture du fichier
 	fclose(fic);
 }
@@ -135,14 +128,14 @@ void readPage(PageId page, unsigned char *buffer){
 * return adresse 	: l'adresse du fichier 
 */
 
-char * nameFile(int fileIdx){
+void nameFile(int fileIdx, char *adresse){
 	//on passe FileIdx en chaine de caracteres eton créé une chaine de caracteres correspondant à l'adresse du fichier
-	char adresse[100]= "../DB/Data_";
+	strcat(adresse, "../DB/Data_");
 	char FileIdChar[12];
-    	sprintf(FileIdChar, "%d", fileIdx);
+    sprintf(FileIdChar, "%d", fileIdx);
 	strcat(adresse,FileIdChar);
 	strcat(adresse, ".rf");
-	return adresse;
+
 }
 
 
@@ -152,62 +145,55 @@ char * nameFile(int fileIdx){
 *  param unsigned char *buffer	: un buffer
 *
 */
-/*
-void writePage(PageId page, unsigned char *Buffer){
+
+void writePage(PageId page, unsigned char *buffer){
 	//on passe FileId en chaine de charactere et on concatene
-	char adresse[]= "DB/Data_";
-	strcat(adresse,(char)page.FileId);
-	strcat(adresse, ".rf");
-	// Ouverture du fichier binaire (b) en mode ajout (a)
+	char * adresse = malloc(sizeof(char)*100);
+	nameFile(page.fileId, adresse);
+	// OufileIdxverture du fichier binaire (b) en mode ajout (a)
 	FILE *fic;
-	fic = fopen(adresse,"ab");
+	fic = fopen(adresse,"w+b");
 
 	// Vérification de la bonne ouverture du fichier
 	if(fic==NULL){
-  		printf("Problème lors de l'ouverture du fichier");
+  		printf("Error access writePage");
   		exit(0);
 	}
 	
-	//Aller à la page page.Idx du fichier 
+	//Aller à la page page.Idx du fichier
+	fseek(fic,TAILLE*page.idX,SEEK_SET);
+
 	// Parcourir les n bytes de la page et y copier les données du buffer
+
+	fwrite(buffer, sizeof(char), TAILLE, fic);
 
 	//Fermeture du fichier
 	fclose(fic);
 
 }
-*/
 
-/*
-*
-*
-*
-*/
-
-int cptSeparatorFile(int fileIdx, char separator){
-	int c, cpt = 0;	
-	char * name = nameFile(fileIdx);
-	FILE* fichier = fopen(name,"r+b");
-	if(fichier==NULL){
-		printf("Error FILE not exist");
-		return;
-	}
-	while (c=fgetc(fic)!=EOF) {
-		if(c==separator)	
-			cpt++;
-	}
-	return cpt;		
-}
-/*
-void main(){
-	int FileId = 1;
-	unsigned char * Buffer = NULL;
-	printf("test");
-	//createFile(FileId);
-	//addPage(FileId);
-	//readPage(FileId, Buffer);
-	//writePage(Buffer, FileId);
-}*/
 
 int main(){
-	return 0;	
+	int fileId = 1;
+	unsigned char * buffer = malloc(sizeof(char)*TAILLE);
+	struct PageId page = { 1, 0};
+	//createFile(fileId);
+	addPage(fileId);
+
+	for(int i = 0 ; i<TAILLE; i++){
+		buffer[i]='C';
+	}
+
+	writePage(page, buffer);
+
+	readPage(page, buffer);
+
+	printf("%s", buffer);
+
+	return 1;
 }
+
+//int main(){
+	//test();
+	//return 1;
+//}
