@@ -14,8 +14,8 @@ int testDbDef(){
 
 	struct RelSchema k = {"Roger", 3, "Santa"};
 	struct RelDef a={k, 6};
-	struct element l={1, NULL, NULL};
-	struct DbDef def={l, 3};
+	struct RelDef* b = a;
+	struct DbDef def={b, 3};
 	printf("compteur de relations: %d\n", def.compteur_relations);
 
     return 0;
