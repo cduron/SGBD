@@ -31,6 +31,7 @@ void createFile(int fileId){
   	}
 	// Fermeture du fichier
 	fclose(fh);
+	free(adresse);
 }
 
 /*
@@ -46,9 +47,6 @@ int addPage(int fileIdx){
 	nameFile(fileIdx, adresse);
 	fichier = fopen(adresse, "a+b"); 
 
-	printf("%s", adresse);
-		
-
 	//Vérification de l'ouverture du fichier
   	if (fichier == NULL){
 		printf("Impossible d'ouvrir le fichier");
@@ -59,7 +57,7 @@ int addPage(int fileIdx){
 	fseek(fichier, 0, SEEK_END);
 	long int tailleFichier = ftell(fichier);
 
-	// Création d'un tableau contenant les (4096-1) bytes (un char = un byte) à ajouter à la fin du fichier pour créer le bloc de 4Ko
+	//Création d'un tableau contenant les (4096-1) bytes (un char = un byte) à ajouter à la fin du fichier pour créer le bloc de 4Ko
 	char * ptab;
 	ptab = calloc(TAILLE, sizeof(char));
 
@@ -74,6 +72,10 @@ int addPage(int fileIdx){
 	createFile(0);
 	stockID = fopen("../DB/Data_0.rf", "a+b");
 	fprintf(stockID,"%d%d", page.fileId, page.idX);
+
+	free(adresse);
+	printf("%s",adresse);
+	printf("%d", page.idX);
 	return page.idX;
 
 }
@@ -94,12 +96,8 @@ void readPage(PageId page, unsigned char *buffer){
 	//Variable pour stocker le caractere
 	int c;
 
-	// Trouver le début de la page PageId
-	// Parcourir la page d'identifiant PageId
-	// Remplir le buffer
-	
-
 	FILE *fic;
+
 	// Ouverture du fichier d'identifiant PageId
 	// Droit en Lecture seulement (r) Fichier binaire (b)
 	fic = fopen(adresse,"r+b");
@@ -115,10 +113,11 @@ void readPage(PageId page, unsigned char *buffer){
 
 	for (int i = 0; i< TAILLE; i++){
 		*(buffer+i)=fgetc(fic);
-		printf("%c", buffer[i]);
 	}
 	// Fermeture du fichier
 	fclose(fic);
+
+	free(adresse);
 }
 
 
@@ -132,10 +131,9 @@ void nameFile(int fileIdx, char *adresse){
 	//on passe FileIdx en chaine de caracteres eton créé une chaine de caracteres correspondant à l'adresse du fichier
 	strcat(adresse, "../DB/Data_");
 	char FileIdChar[12];
-    sprintf(FileIdChar, "%d", fileIdx);
+    	sprintf(FileIdChar, "%d", fileIdx);
 	strcat(adresse,FileIdChar);
 	strcat(adresse, ".rf");
-
 }
 
 
@@ -164,36 +162,32 @@ void writePage(PageId page, unsigned char *buffer){
 	fseek(fic,TAILLE*page.idX,SEEK_SET);
 
 	// Parcourir les n bytes de la page et y copier les données du buffer
-
 	fwrite(buffer, sizeof(char), TAILLE, fic);
 
 	//Fermeture du fichier
 	fclose(fic);
+	free(adresse);
 
 }
 
 
 int main(){
+	
+	
 	int fileId = 1;
 	unsigned char * buffer = malloc(sizeof(char)*TAILLE);
 	struct PageId page = { 1, 0};
-	//createFile(fileId);
+	createFile(fileId);
 	addPage(fileId);
-
 	for(int i = 0 ; i<TAILLE; i++){
 		buffer[i]='C';
 	}
 
 	writePage(page, buffer);
-
-	readPage(page, buffer);
-
-	printf("%s", buffer);
+	unsigned char * buffer2 = malloc(sizeof(char)*TAILLE);
+	readPage(page, buffer2);
+	
+	free(buffer);
 
 	return 1;
 }
-
-//int main(){
-	//test();
-	//return 1;
-//}
