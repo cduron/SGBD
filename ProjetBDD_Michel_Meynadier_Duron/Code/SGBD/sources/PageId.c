@@ -11,7 +11,7 @@
 
 /*
 *  createFile		: créé un fichier Data_FileId.rf en vue d’y stocker des records par la suite.
-*  param int FileIdx	: identifiant de la page à créer
+*  param int fileId	: identifiant de la page à créer
 *
 */
 void createFile(int fileId){
@@ -21,12 +21,12 @@ void createFile(int fileId){
 	char * adresse = malloc(sizeof(char)*100);
 	nameFile(fileId, adresse);
 	//on créé et on ouvre le fichier binaire d'adresse Data_FileId.rf dans le répertoire DB
-	// Si le fichier n'existe pas, en mode (a+) le fichier est créé
-	fh = fopen(adresse, "a+b");
+	// Si le fichier n'existe pas, en mode (w) le fichier est créé, si il existe il est écrasé
+	fh = fopen(adresse, "wb");
 
 	// Vérification de la bonne ouverture du fichier
   	if(fh==NULL){
-    		printf("Problème lors de l'ouverture du fichier");
+    		printf("Error access createFile");
     		exit(0);
   	}
 	// Fermeture du fichier
@@ -36,7 +36,7 @@ void createFile(int fileId){
 
 /*
 *  addPage		: rajoute une page au fichier spécifié par le champ FileIdx
-*  param int FileIdx	: identifiant de la page
+*  param int fileIdx	: identifiant de la page
 *
 */
 
@@ -49,7 +49,7 @@ int addPage(int fileIdx){
 
 	//Vérification de l'ouverture du fichier
   	if (fichier == NULL){
-		printf("Impossible d'ouvrir le fichier");
+		printf("Error Access addPage");
 		exit(0);
  	}
 
@@ -148,10 +148,11 @@ void writePage(PageId page, unsigned char *buffer){
 	//on passe FileId en chaine de charactere et on concatene
 	char * adresse = malloc(sizeof(char)*100);
 	nameFile(page.fileId, adresse);
+	printf("%s", adresse);
 	// OufileIdxverture du fichier binaire (b) en mode ajout (a)
 	FILE *fic;
-	fic = fopen(adresse,"w+b");
-
+	fic = fopen(adresse,"a+b");
+	
 	// Vérification de la bonne ouverture du fichier
 	if(fic==NULL){
   		printf("Error access writePage");
@@ -177,16 +178,17 @@ int main(){
 	int fileId = 1;
 	unsigned char * buffer = malloc(sizeof(char)*TAILLE);
 	struct PageId page = { 1, 0};
+	
 	createFile(fileId);
 	addPage(fileId);
-	for(int i = 0 ; i<TAILLE; i++){
+	for(int i = 0 ; i<5; i++){
 		buffer[i]='C';
 	}
 
 	writePage(page, buffer);
 	unsigned char * buffer2 = malloc(sizeof(char)*TAILLE);
 	readPage(page, buffer2);
-	
+	printf("%s",buffer2);
 	free(buffer);
 
 	return 1;
