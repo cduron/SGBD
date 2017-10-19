@@ -1,0 +1,5 @@
+#ifndef BUFFERMANAGER_H
+#define BUFFERMANAGER_H
+
+
+#endif /* BUFFERMANAGER_H */
