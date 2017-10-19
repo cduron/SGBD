@@ -69,13 +69,10 @@ int addPage(int fileIdx){
 	page.idX =  tailleFichier/TAILLE;
 
 	FILE* stockID;
-	createFile(0);
 	stockID = fopen("../DB/Data_0.rf", "a+b");
 	fprintf(stockID,"%d%d", page.fileId, page.idX);
 
 	free(adresse);
-	printf("%s",adresse);
-	printf("%d", page.idX);
 	return page.idX;
 
 }
@@ -87,7 +84,6 @@ int addPage(int fileIdx){
 */
 
 void readPage(PageId page, unsigned char *buffer){
-
 	//on passe FileId en chaine de charactere
 	char * adresse = malloc(sizeof(char)*100);
 	nameFile(page.fileId, adresse);
@@ -129,6 +125,7 @@ void readPage(PageId page, unsigned char *buffer){
 
 void nameFile(int fileIdx, char *adresse){
 	//on passe FileIdx en chaine de caracteres eton créé une chaine de caracteres correspondant à l'adresse du fichier
+        adresse[0]=0;
 	strcat(adresse, "../DB/Data_");
 	char FileIdChar[12];
     	sprintf(FileIdChar, "%d", fileIdx);
@@ -148,7 +145,6 @@ void writePage(PageId page, unsigned char *buffer){
 	//on passe FileId en chaine de charactere et on concatene
 	char * adresse = malloc(sizeof(char)*100);
 	nameFile(page.fileId, adresse);
-	printf("%s", adresse);
 	// OufileIdxverture du fichier binaire (b) en mode ajout (a)
 	FILE *fic;
 	fic = fopen(adresse,"a+b");
@@ -172,12 +168,12 @@ void writePage(PageId page, unsigned char *buffer){
 }
 
 
-int main(){
+int test(){
 	
 	
 	int fileId = 1;
 	unsigned char * buffer = malloc(sizeof(char)*TAILLE);
-	struct PageId page = { 1, 0};
+	struct PageId page = {1, 0};
 	
 	createFile(fileId);
 	addPage(fileId);
@@ -192,4 +188,9 @@ int main(){
 	free(buffer);
 
 	return 1;
+}
+
+
+int main(){
+	return 0;
 }
