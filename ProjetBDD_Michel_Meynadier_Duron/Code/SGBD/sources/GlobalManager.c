@@ -10,14 +10,16 @@
 
 
 struct DbDef dbDef1; /* Declaration de DbDef1 de type DbDef */
-struct HepaFile *listHeapFile;
+struct HeapFile *listHeapFile;
 
 
 
-
+/* Initialise le compteur de relations de dbDef1 à 0 puis recupere le contenu du fichier
+ * "Catalog.def" dans dbDef1 si le fichier existe.
+ */
 void init (){
-	dbDef1.compteur_relations = 0;
-	FILE* fichier = NULL;
+	dbDef1.compteurRelations = 0;
+	FILE* fichier;
 	fichier = fopen("../DB/Catalog.def", "r+");
 	if (fichier != NULL){
 		fread(&dbDef1, sizeof(dbDef1), 1, fichier);
@@ -34,11 +36,13 @@ void CreateRelation(char nomRelation, int nombreColonnes, char typesDesColonnes)
 	relDef1.Schema.nom = nomRelation;
 	relDef1.Schema.nombre_colonnes = nombreColonnes;
 	relDef1.Schema.type_colonnes = typesDesColonnes;
-	relDef1.FileId = dbDef1.compteur_relations;
-	dbDef1.liste_relations[dbDef1.compteur_relations] = relDef1;
-	dbDef1.compteur_relations ++;
+	relDef1.FileId = dbDef1.compteurRelations;
+	dbDef1.listeRelations[dbDef1.compteurRelations] = relDef1;
+	dbDef1.compteurRelations ++;
 };
 
+
+/* Créer un fichier "Catalog.def" et ecrit le contenu de dbDef1 dans ce fichier. */
 int finish(){
 	    FILE* fichier = NULL;
 	    fichier = fopen("../DB/Catalog.def", "r+");
@@ -50,6 +54,15 @@ int finish(){
 	        printf("Impossible d'ouvrir le fichier Catalog.def");
 	    }
 	    return 0;
+}
+
+
+void refreshHeapFiles(){
+	for(int i=0; i<dbDef1.compteurRelations; i++){
+		struct HeapFile heapFileTest;
+		heapFileTest.ptrRefDel[i] = &(dbDef1.listeRelations[i]);
+		listHeapFile[i] = heapFileTest;
+	}
 }
 
 int main(){
