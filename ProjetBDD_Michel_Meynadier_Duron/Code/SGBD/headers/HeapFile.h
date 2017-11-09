@@ -8,5 +8,6 @@ struct HeapFile {
 	struct RelDef *ptrRelDef;
 };
 
+void createHeader();
 
 #endif /* HeapFile_H_ */

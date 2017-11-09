@@ -7,9 +7,9 @@
 /* Structure DbDef listant les relations existantes dans la DB */
 struct DbDef {
 	/* "liste" des relations existantes */
-	struct RelDef *liste_relations;
+	struct RelDef *listeRelations;
 	/* nombres de relations */
-	int compteur_relations;
+	int compteurRelations;
 };
 
 
