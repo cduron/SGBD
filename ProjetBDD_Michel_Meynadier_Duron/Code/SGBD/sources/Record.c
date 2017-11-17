@@ -14,7 +14,7 @@ struct Record *record;
 */
 void setValues (char **valeurs){
 	for (int i=0; i<strlen(valeurs);i++){
-		memcpy(record->ptrrecord[i], valeurs[i], sizeof(record->ptrrecord[i]));
+		memcpy(record->*(ptrrecord+i), valeurs[i], sizeof(record->ptrrecord[i]));
 	}
 }
 
