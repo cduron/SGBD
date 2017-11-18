@@ -4,7 +4,7 @@
  *  Created on: 21 sept. 2017
  *      Author: ii05586
  */
-
+#include "BufferManager.h"
 #ifndef PAGEID_H_
 #define PAGEID_H_
 
@@ -13,6 +13,15 @@ typedef struct PageId {
   int fileId;
   int idX;
 } PageId;
+
+
+typedef struct frame
+{
+	unsigned char* buffer;
+	PageId page;
+	char flag;
+	int pin_count;
+}frame;
 
 /* Fonction qui créé un fichier Data_FileId.rf en vue d’y stocker des records par la suite */
 void createFile(int fileId);
@@ -29,5 +38,7 @@ void writePage(PageId page, unsigned char *Buffer);
 
 /*Fonction qui passe FileIdx en chaine de caracteres et crée une chaine de caracteres correspondant à l'adresse du fichier */
 void nameFile(int fileIdx, char * adresse);
+
+void testPageId();
 
 #endif /* RELSCHEMA_H_ */
