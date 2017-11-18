@@ -4,7 +4,7 @@
 #define BUFFERMANAGER_H
 
 
-
+#include "PageId.h"
 
 /* Fonction d'initialisation de la structure frame */
 void initStructure();
