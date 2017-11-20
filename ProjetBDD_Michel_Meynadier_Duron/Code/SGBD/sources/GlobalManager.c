@@ -52,7 +52,8 @@ void refreshHeapFiles(){
 	}
 }
 
-/* Initialise le compteur de relations de dbDef1 à 0 puis recupere le contenu du fichier
+/*
+ *Initialise le compteur de relations de dbDef1 à 0 puis recupere le contenu du fichier
  * "Catalog.def" dans dbDef1 si le fichier existe.
  * Puis listHeapFile est mise à jour.
  */
@@ -69,10 +70,3 @@ void init (){
 	}
 	refreshHeapFiles();
 };
-
-int main(){
-	init();
-	finish();
-	return 0;
-}
-
