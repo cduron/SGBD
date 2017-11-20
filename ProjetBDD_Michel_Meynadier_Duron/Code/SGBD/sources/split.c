@@ -5,7 +5,7 @@
 #include <string.h>
 
 
-#include "/headers/split.h"
+#include "../headers/split.h"
 
 /*
 * nbLettreAvantSeparateur	: permet de retourner le nombre de caractère d'un mot dans une phrase
@@ -71,26 +71,4 @@ char **split(char *chaine, char* separateur, int nbcolonne){
 		}
 	}
 	return rtnchaine;
-}
-
-/*
-* Fonction de test();
-*
-*/
-void testsplit(){	
-	char chaine[] = "coucou je suis fort";
-	printf("%s\n\n", chaine);
-	printf("Alloue\n\n");
-	char **souschaine = split(chaine, " ", 4);
-	if(souschaine==NULL)
-		printf("ERREUR D'AFFECTATION\n");
-	if(souschaine==NULL){
-		printf("Erreur NULL\n");	
-		free(souschaine);
-	}
-	for (int i = 0; i < 4; ++i)
-	{
-		printf("%s\n", souschaine[i]);
-	}
-	free(souschaine);
 }

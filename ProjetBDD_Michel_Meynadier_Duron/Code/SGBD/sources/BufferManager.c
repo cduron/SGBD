@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include "../headers/BufferManager.h"
 #include "../headers/Constante.h"
-#include "../headers/PageId.h"
+#include "../headers/DefStruct.h"
 
 struct frame buffer_pool[F];
 

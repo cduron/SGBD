@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../headers/RelDef.h"
+#include "../headers/DefStruct.h"
 #include "../headers/HeapFile.h"
 #include "../headers/PageId.h"
 

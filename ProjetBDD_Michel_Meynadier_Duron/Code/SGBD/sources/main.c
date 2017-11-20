@@ -3,8 +3,8 @@
  */
 #include <stdio.h>
 #include <string.h>
-#include "/headers/GlobalManager.h"
-#include "/headers/RelSchema.h"
+
+#include "../headers/GlobalManager.h"
 
 
 int main (){

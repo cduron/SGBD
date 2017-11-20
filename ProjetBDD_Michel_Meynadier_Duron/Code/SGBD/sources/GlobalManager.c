@@ -5,8 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "../headers/GlobalManager.h"
-#include "../headers/DbDef.h"
-#include "../headers/RelDef.h"
+#include "../headers/DefStruct.h"
 #include "../headers/HeapFile.h"
 
 

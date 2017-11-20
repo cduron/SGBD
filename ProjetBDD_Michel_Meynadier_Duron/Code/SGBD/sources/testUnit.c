@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "testUnit.h"
+
+
+void testRecord(){
+	char *valeurs[3]= {
+			"test",
+			"testt",
+			"testt"
+	};
+	setValues(valeurs, 3);
+	printf("%s",valeurs[0]);
+	printf("%s",record.ptrrecord[0]);
+}
+
+void testsplit(){	
+	char chaine[] = "test test test test test";
+	printf("%s\n\n", chaine);
+	printf("Alloue\n\n");
+	char **souschaine = split(chaine, " ", 4);
+	if(souschaine==NULL)
+		printf("ERREUR D'AFFECTATION\n");
+	if(souschaine==NULL){
+		printf("Erreur NULL\n");	
+		free(souschaine);
+	}
+	for (int i = 0; i < 4; ++i)
+	{
+		printf("%s\n", souschaine[i]);
+	}
+	free(souschaine);
+}
+
+
+void testDbDef(){
+
+	struct RelSchema k = {"insert", 3, "table1"};
+	struct RelDef a={k, 6};
+	struct RelDef* b = a;
+	struct DbDef def={b, 3};
+	printf("compteur de relations: %d\n", def.compteur_relations);
+}
+
+void testRelDef(){
+	struct RelSchema a = {"Bob", 4, "Nani"};
+	struct RelDef reldef1={a, 3};
+	printf("OMEWA MOU SHINJIIR\n");
+	printf("type de l'ID: %d", reldef1.FileId);
+}
+
+void testRelSchema(){
+	struct RelSchema relschema1={.nom="Bob", .nombre_colonnes=4, .type_colonnes="peremptoire"};
+	printf("nombre de colonnes: %d", relschema1.nombre_colonnes);
+}
