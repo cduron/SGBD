@@ -7,14 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-int test(){
+int testRelDef(){
 	struct RelSchema a = {"Bob", 4, "Nani"};
 	struct RelDef reldef1={a, 3};
 	printf("OMEWA MOU SHINJIIR\n");
 	printf("type de l'ID: %d", reldef1.FileId);
 	return 0;
-}
-
-int main(){
-    return 0;
 }
