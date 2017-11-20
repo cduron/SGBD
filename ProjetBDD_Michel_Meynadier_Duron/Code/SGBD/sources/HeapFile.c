@@ -13,8 +13,3 @@ void createHeader(struct HeapFile hf){
 	addPage(hf.ptrRelDef->FileId);
 
 }
-
-
-int main(){
-	return 0;
-}
