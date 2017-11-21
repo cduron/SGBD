@@ -1,5 +1,5 @@
 /*
- * Création des Structures
+ * Fichier PageId.c
  */
 
 #include <stdio.h>
@@ -165,32 +165,4 @@ void writePage(PageId page, unsigned char *buffer){
 	fclose(fic);
 	free(adresse);
 
-}
-
-
-int test(){
-	
-	
-	int fileId = 1;
-	unsigned char * buffer = malloc(sizeof(char)*TAILLE);
-	struct PageId page = {1, 0};
-	
-	createFile(fileId);
-	addPage(fileId);
-	for(int i = 0 ; i<5; i++){
-		buffer[i]='C';
-	}
-
-	writePage(page, buffer);
-	unsigned char * buffer2 = malloc(sizeof(char)*TAILLE);
-	readPage(page, buffer2);
-	printf("%s",buffer2);
-	free(buffer);
-
-	return 1;
-}
-
-
-int main(){
-	return 0;
 }
