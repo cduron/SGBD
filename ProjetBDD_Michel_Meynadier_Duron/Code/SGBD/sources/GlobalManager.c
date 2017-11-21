@@ -5,14 +5,21 @@
 #include <string.h>
 #include <stdlib.h>
 #include "../headers/GlobalManager.h"
+
 #include "../headers/DefStruct.h"
 #include "../headers/HeapFile.h"
 
+//Declaration de DbDef1 de type DbDef
+struct DbDef dbDef1;
+// Declaration de listHeapFile qui est une liste chainee d'elements de type HeapFile
+struct HeapFile *listHeapFile; 
 
-struct DbDef dbDef1; /* Declaration de DbDef1 de type DbDef */
-struct HeapFile *listHeapFile; /* Declaration de listHeapFile qui est une liste chainee d'elements de type HeapFile */
-
-/* Creer une relation, c'est a dire une structure de tpe RelDef */
+/* 
+ * Fonction createRelation : Creer une relation, c'est a dire une structure de type RelDef
+ * param nomRelation : nom de la relation créée
+ * param nombreColonnes : nombre de colonnes dans la relation
+ * param typesDesColonnes : types des colonnes de la relation
+*/
 void createRelation(char nomRelation, int nombreColonnes, char typesDesColonnes){
 	struct RelDef relDef1;
 	relDef1.Schema.nom = nomRelation;
@@ -24,7 +31,9 @@ void createRelation(char nomRelation, int nombreColonnes, char typesDesColonnes)
 };
 
 
-/* Créer un fichier "Catalog.def" et ecrit le contenu de dbDef1 dans ce fichier. */
+/* 
+ * Fonction finish : Créer un fichier "Catalog.def" et ecrit le contenu de dbDef1 dans ce fichier
+*/
 int finish(){
 	    FILE* fichier = NULL;
 	    fichier = fopen("../DB/Catalog.def", "r+");
@@ -38,7 +47,7 @@ int finish(){
 	    return 0;
 }
 
-/* Pour chaque relartion existante dans la BDD creer une structure HeapFile correspondante et l'ajoute a
+/*  Pour chaque relartion existante dans la BDD creer une structure HeapFile correspondante et l'ajoute a
  * la liste listHeapFile.
  * ATTENTION! ERREUR DE SEGMENTATION!
  */
