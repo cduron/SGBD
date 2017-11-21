@@ -47,10 +47,11 @@ int finish(){
 	    return 0;
 }
 
-/*  Pour chaque relartion existante dans la BDD creer une structure HeapFile correspondante et l'ajoute a
+/*  
+ * Fonction refreshHeapFiles : Pour chaque relation existante dans la BDD creer une structure HeapFile correspondante et l'ajoute a
  * la liste listHeapFile.
  * ATTENTION! ERREUR DE SEGMENTATION!
- */
+*/
 void refreshHeapFiles(){
 	for(int i=0; i<dbDef1.compteurRelations; i++){
 		struct HeapFile heapFile;
@@ -61,7 +62,7 @@ void refreshHeapFiles(){
 }
 
 /*
- *Initialise le compteur de relations de dbDef1 à 0 puis recupere le contenu du fichier
+ * Foncton init : Initialise le compteur de relations de dbDef1 à 0 puis recupere le contenu du fichier
  * "Catalog.def" dans dbDef1 si le fichier existe.
  * Puis listHeapFile est mise à jour.
  */
