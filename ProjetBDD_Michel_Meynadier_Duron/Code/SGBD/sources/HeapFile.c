@@ -1,5 +1,5 @@
 /*
- * Création des Structures
+ * Fichier HeapFile.c
  */
 
 #include <stdio.h>
@@ -9,6 +9,10 @@
 #include "../headers/HeapFile.h"
 #include "../headers/PageId.h"
 
+/*
+ * Fonction createHeader : Création d'une HeaderPage
+ * Param HeapFile : HeapFile
+*/
 void createHeader(struct HeapFile hf){
 	addPage(hf.ptrRelDef->FileId);
 
