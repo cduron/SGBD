@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "../headers/GlobalManager.h"
 
 #include "../headers/DefStruct.h"
+#include "../headers/GlobalManager.h"
 #include "../headers/HeapFile.h"
+
 
 //Declaration de DbDef1 de type DbDef
 struct DbDef dbDef1;
@@ -50,13 +51,13 @@ int finish(){
 /*  
  * Fonction refreshHeapFiles : Pour chaque relation existante dans la BDD creer une structure HeapFile correspondante et l'ajoute a
  * la liste listHeapFile.
- * ATTENTION! ERREUR DE SEGMENTATION!
+ * 
 */
 void refreshHeapFiles(){
 	for(int i=0; i<dbDef1.compteurRelations; i++){
 		struct HeapFile heapFile;
-		heapFile.ptrRelDef = malloc(sizeof(dbDef1.listeRelations[i]));
-	    heapFile.ptrRelDef[i] = (dbDef1.listeRelations[i]);
+		heapFile.ptrRelDef = malloc(sizeof(dbDef1.listeRelations));
+	    heapFile.ptrRelDef[i] = dbDef1.listeRelations[i];
 		listHeapFile[i] = heapFile;
 	}
 }
