@@ -26,6 +26,22 @@ void createHeader(struct HeapFile hf){
 	freePage(pageHeapFile, '1');
 }
 
+void AjouterFin(Liste* liste, HeapFile hp)
+{
+     *nouveau=malloc(sizeof(Element));
+    if(nouveau==NULL) exit(0);
+
+    nouveau->val=valeur;
+    nouveau->nxt=NULL;
+
+    Element* p = liste->first;
+    while(p->nxt!=NULL) p = p->nxt;
+
+    p->nxt=nouveau;
+
+    liste->nmbrElements+=1;
+}
+
 int main(){
 
 	initStruct();

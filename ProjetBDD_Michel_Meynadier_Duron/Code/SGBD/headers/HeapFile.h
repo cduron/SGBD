@@ -8,6 +8,11 @@ struct HeapFile {
 	struct RelDef *ptrRelDef;
 };
 
+struct ListeHeapFile {
+	struct HeapFile present;
+	struct HeapFile *nxt;
+};
+
 void createHeader();
 
 #endif /* HeapFile_H_ */
