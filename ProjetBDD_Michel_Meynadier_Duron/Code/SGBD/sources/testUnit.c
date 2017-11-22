@@ -6,11 +6,12 @@
 #include <string.h>
 #include "testUnit.h"
 
+/*
 
 /*
  * Fonction testPageId : Fonction de test de toutes les fonctions du fichier PageId.c
  * CreateFile(), writePage(), readPage(), addPage()
- */
+ *
 int testPageId(){
 	int fileId = 1;
 	unsigned char * buffer = malloc(sizeof(char)*TAILLE);
@@ -33,7 +34,7 @@ int testPageId(){
 
 /*
  * Fonction testSetValues : Test de la fonction setValues du fichier Record.c
- */
+ *
 void testSetValues(){
 	char *valeurs[3]= {
 			"test",
@@ -51,7 +52,7 @@ void testSetValues(){
  * test
  * test
  * test
- */
+ *
 void testsplit(){	
 	char chaine[] = "test test test test test";
 	printf("%s\n\n", chaine);
@@ -72,7 +73,7 @@ void testsplit(){
 
 /*
  *
- */
+ *
 void testDbDef(){
 	struct RelSchema k = {"insert", 3, "table1"};
 	struct RelDef a={k, 6};
@@ -91,3 +92,4 @@ void testRelSchema(){
 	struct RelSchema relschema1={.nom="Bob", .nombre_colonnes=4, .type_colonnes="peremptoire"};
 	printf("nombre de colonnes: %d", relschema1.nombre_colonnes);
 }
+*/

@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "../headers/DefStruct.h"
 #include "../headers/GlobalManager.h"
 #include "../headers/HeapFile.h"
 

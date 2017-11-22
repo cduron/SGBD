@@ -4,9 +4,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "../headers/PageId.h"
 #include "../headers/BufferManager.h"
+#include "../headers/GlobalManager.h"
 #include "../headers/Constante.h"
-#include "../headers/DefStruct.h"
 
 struct frame buffer_pool[F];
 
@@ -17,7 +18,10 @@ struct frame buffer_pool[F];
 */ 
 void initStruct(){
 	for(int i = 0;i<F;i++){
-		buffer_pool[i].buffer=NULL;
+		buffer_pool[i].buffer=malloc(sizeof(char)*TAILLE);
+		if(buffer_pool[i].buffer==NULL){
+			printf("P Error\n");
+		}
 		buffer_pool[i].page.fileId=0;
 		buffer_pool[i].page.idX=0;
 		buffer_pool[i].flag='0';
