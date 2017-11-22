@@ -9,7 +9,7 @@
 #include "../headers/GlobalManager.h"
 #include "../headers/Constante.h"
 
-struct frame buffer_pool[F];
+frame buffer_pool[F];
 
 /**
 * Initialisation des frames

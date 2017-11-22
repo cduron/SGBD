@@ -11,8 +11,13 @@
 
 //Declaration de DbDef1 de type DbDef
 struct DbDef dbDef1;
-// Declaration de listHeapFile qui est une liste chainee d'elements de type HeapFile
-struct ListeHeapFile listHeapFile;
+
+// Declaration de HeapFile qui est tableau d'elements de type HeapFile
+struct HeapFile *listHeapFile;
+
+void initTabHeapFile(){
+	listHeapFile = malloc(sizeof(struct HeapFile)*20);
+}
 
 /* 
  * Fonction createRelation : Creer une relation, c'est a dire une structure de type RelDef
@@ -29,9 +34,13 @@ void createRelation(char nomRelation, int nombreColonnes, char typesDesColonnes)
 	dbDef1.listeRelations[dbDef1.compteurRelations] = relDef1;
 	dbDef1.compteurRelations ++;
 	struct HeapFile hf;
-	hf.ptrRelDef = &relDef1;
-	listHeapFile
-};
+	createHeader(hf);
+	int cpt= 0;
+	while(listHeapFile[cpt].ptrRelDef==NULL){
+		cpt++;
+	}
+	listHeapFile[cpt].ptrRelDef=hf.ptrRelDef;
+}
 
 
 /* 

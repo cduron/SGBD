@@ -13,7 +13,7 @@ struct Record record;
  * Fonction setValues 	: permet de stocker les valeurs entrées en arguments, en tant que valeurs des attributs du Record
  * @param valeurs		: Tableau de char*
 */
-void setValues (char **valeurs, int nbcolonne)
+void setValues (char *valeurs, int nbcolonne)
 {
 	record.ptrrecord=split(valeurs, " ", nbcolonne);
 }

@@ -83,14 +83,11 @@ int addPage(int fileIdx){
 *
 */
 
-void readPage(PageId page, unsigned char *buffer){
+void readPage(PageId page, char *buffer){
 	//on passe FileId en chaine de charactere
 	char * adresse = malloc(sizeof(char)*100);
 	nameFile(page.fileId, adresse);
-	//Compteur pour le Buffer
-	int i=0;
-	//Variable pour stocker le caractere
-	int c;
+
 
 	FILE *fic;
 
@@ -141,7 +138,7 @@ void nameFile(int fileIdx, char *adresse){
 *
 */
 
-void writePage(PageId page, unsigned char *buffer){
+void writePage(PageId page, char *buffer){
 	//on passe FileId en chaine de charactere et on concatene
 	char * adresse = malloc(sizeof(char)*100);
 	nameFile(page.fileId, adresse);

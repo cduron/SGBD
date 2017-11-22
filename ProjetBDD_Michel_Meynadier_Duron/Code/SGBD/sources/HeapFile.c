@@ -12,6 +12,9 @@
 #include "../headers/GlobalManager.h"
 #include "../headers/Constante.h"
 
+
+
+
 /*
  * Fonction createHeader : Création d'une HeaderPage
  * Param HeapFile : HeapFile
@@ -19,29 +22,14 @@
 void createHeader(struct HeapFile hf){
 	int idX = addPage(hf.ptrRelDef->FileId);
 	PageId pageHeapFile = {hf.ptrRelDef->FileId, idX};
-	unsigned char *buffer = malloc(sizeof(char)*TAILLE);
+	char *buffer = malloc(sizeof(char)*TAILLE);
 	buffer="0";
 	writePage(pageHeapFile, buffer);
 	getPage(pageHeapFile);
 	freePage(pageHeapFile, '1');
 }
 
-void AjouterFin(Liste* liste, HeapFile hp)
-{
-     *nouveau=malloc(sizeof(Element));
-    if(nouveau==NULL) exit(0);
-
-    nouveau->val=valeur;
-    nouveau->nxt=NULL;
-
-    Element* p = liste->first;
-    while(p->nxt!=NULL) p = p->nxt;
-
-    p->nxt=nouveau;
-
-    liste->nmbrElements+=1;
-}
-
+/*
 int main(){
 
 	initStruct();
@@ -56,3 +44,4 @@ int main(){
 
 	return 0;
 }
+*/

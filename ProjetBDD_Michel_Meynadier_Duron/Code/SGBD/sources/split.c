@@ -17,7 +17,7 @@
 */
 int nbLettreAvantSeparateur(char *separateur, char*phrase, int numeroMot){
 	int cptlettre = 0;
-	while(phrase[cptlettre]!=' '&&'\0'!=phrase[cptlettre]!='\0')
+	while((phrase[cptlettre]!=' ')&&(phrase[cptlettre]!='\0'))
 		cptlettre++;
 	return cptlettre;
 }
@@ -35,7 +35,7 @@ int nbLettreAvantSeparateur(char *separateur, char*phrase, int numeroMot){
 */
 
 char **split(char *chaine, char* separateur, int nbcolonne){
-	int ligne=0, boucle=0;
+	int ligne=0;
 	char *token;
 	/* Alloue le tableau de retour */
 	char ** rtnchaine=malloc(sizeof(char*)*(nbcolonne+1));
