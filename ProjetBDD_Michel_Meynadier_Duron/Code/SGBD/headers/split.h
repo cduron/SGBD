@@ -1,7 +1,7 @@
 /*split.h */ 
 
 
-#ifdef SPLIT_H
+#ifndef SPLIT_H
 #define SPLIT_H
 
 char ** split (char *chaine, char* separateur, int nbcolonne);

@@ -20,10 +20,10 @@ et qui retourne un PageId correspondant à l’id de la page nouvellement rajout
 int addPage(int fileIdx);
 
 /* Fonction permettant de remplir l'argument Buffer avec le contenu de la page identifée par PageId */
-void readPage(PageId page, unsigned char *buffer);
+void readPage(PageId page, char *buffer);
 
 /* Fonction permettant l'écriture du contenu de l'argument Buffer dans le fichier dont l'id correspond à l'argument PageId */
-void writePage(PageId page, unsigned char *Buffer);
+void writePage(PageId page, char *Buffer);
 
 /*Fonction qui passe FileIdx en chaine de caracteres et crée une chaine de caracteres correspondant à l'adresse du fichier */
 void nameFile(int fileIdx, char * adresse);

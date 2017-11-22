@@ -16,7 +16,7 @@
 
 typedef struct frame
 {
-	unsigned char* buffer;
+	char* buffer;
 	PageId page;
 	char flag;
 	int pin_count;

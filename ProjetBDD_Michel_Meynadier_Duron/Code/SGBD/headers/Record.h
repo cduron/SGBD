@@ -6,7 +6,7 @@ typedef struct Record {
   char **ptrrecord;
 } Record;
 
-void setValues (char **valeurs, int nbcolonnes);
+void setValues (char *valeurs, int nbcolonnes);
 
 
 #endif /* RECORD_H_ */
