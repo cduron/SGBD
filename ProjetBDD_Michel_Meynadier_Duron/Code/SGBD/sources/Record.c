@@ -8,10 +8,9 @@
 /**
  * Fonction setValues 	: Permet de stocker les valeurs entrées en arguments, en tant que valeurs des attributs du Record
  * param valeurs		: Tableau de char*
- * param nbColonnes 	: Nombre de colonnes dans valeurs
  * param record			: Fichier Record dans lequel le tableau de Valeurs sera sauvegardé
 */
-void setValues (char *valeurs, int nbcolonne, Record record)
+void setValues (char *valeurs, Record record)
 {
-	record.ptrrecord=split(valeurs, " ", nbcolonne);
+	record.ptrrecord=split(valeurs, " ");
 }

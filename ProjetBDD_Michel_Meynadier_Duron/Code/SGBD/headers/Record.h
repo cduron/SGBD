@@ -7,7 +7,7 @@ typedef struct Record {
 } Record;
 
 //Fonction permettant de stocker les valeurs entrées en arguments, en tant que valeurs des attributs du Record
-void setValues (char *valeurs, int nbcolonnes, Record record);
+void setValues (char *valeurs, Record record);
 
 
 #endif /* RECORD_H_ */
