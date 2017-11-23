@@ -11,17 +11,34 @@
 * nbLettreAvantSeparateur	: permet de retourner le nombre de caractère d'un mot dans une phrase
 *  param char *separateur	: un séparateur de mots
 *  param char *phrase		: une chaine de caractère
-*  param int numeroMot 		: place du mot
-*  return int cptlettre		: nombre de lettre dans un mot
+*  return int cptLettre		: nombre de lettre dans un mot
 *   
 */
-int nbLettreAvantSeparateur(char *separateur, char*phrase, int numeroMot){
-	int cptlettre = 0;
-	while((phrase[cptlettre]!=' ')&&(phrase[cptlettre]!='\0'))
-		cptlettre++;
-	return cptlettre;
+int nbLettreAvantSeparateur(char *separateur, char*phrase){
+	int cptLettre = 0;
+	
+	while((phrase[cptLettre]!=*separateur)&&(phrase[cptLettre]!='\0'))
+		cptLettre++;
+	return cptLettre;
 }
 
+/*
+* nbLettreAvantSeparateur	: permet de retourner le nombre un mot dans une phrase
+*  param char *separateur	: un séparateur de mots
+*  param char *phrase		: une chaine de caractère
+*  return int cptMot		: nombre de mot
+*   
+*/
+int nbMotAvantSeparateur(char *separateur, char*phrase){
+	int cptMot = 1, cptLettre=0;
+	while(phrase[cptLettre]!='\0'){
+		cptLettre++;
+		if(phrase[cptLettre]==*separateur){
+			cptMot++;
+		}
+	}			
+	return cptMot;
+}
 
 /*
 * Split 					: permetant de séparer une chaine de caracteres en un tableau de chaines de caracteres.
@@ -34,11 +51,12 @@ int nbLettreAvantSeparateur(char *separateur, char*phrase, int numeroMot){
 *  var int ligne			: compteur de ligne
 */
 
-char **split(char *chaine, char* separateur, int nbcolonne){
+char **split(char *chaine, char* separateur){
 	int ligne=0;
 	char *token;
+	int nbColonne = nbMotAvantSeparateur(" ", chaine);
 	/* Alloue le tableau de retour */
-	char ** rtnchaine=malloc(sizeof(char*)*(nbcolonne+1));
+	char ** rtnchaine=malloc(sizeof(char*)*(nbColonne+1));
 	if(rtnchaine==NULL)
 	{
 		printf("Erreur rtnchaine NULL\n");
@@ -49,13 +67,13 @@ char **split(char *chaine, char* separateur, int nbcolonne){
 	/*Affecte le premier mot dans token */
 	token=strtok(chaine, separateur);
 	/*Alloue la taille du mot à la ligne 0 */
-	rtnchaine[ligne]=malloc(sizeof(char)*(nbLettreAvantSeparateur(separateur, chaine, ligne)+1));
+	rtnchaine[ligne]=malloc(sizeof(char)*(nbLettreAvantSeparateur(separateur, chaine)+1));
 	/*Stock le mot dans le tableau */
 	rtnchaine[ligne]=token;
 	ligne++;
 	while(token!=NULL){
 		/* Alloue la taille du mot à la ligne suivante */
-		rtnchaine[ligne]=malloc(sizeof(char)*(nbLettreAvantSeparateur(separateur, chaine, ligne)+1));
+		rtnchaine[ligne]=malloc(sizeof(char)*(nbLettreAvantSeparateur(separateur, chaine)+1));
 		if(rtnchaine[ligne]==NULL){
 			printf("Erreur rtnchaine[%d] NULL\n", ligne);
 			free(rtnchaine);
