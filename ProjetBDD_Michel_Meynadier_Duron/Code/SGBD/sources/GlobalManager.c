@@ -15,9 +15,9 @@ struct DbDef dbDef1;
 // Declaration de listeHeapFile qui est une liste chainee d'elements de type HeapFile
 struct ListeHeapFile *listeHeapFile = NULL;
 
-//void initTabHeapFile(){
-	//listHeapFile = malloc(sizeof(struct HeapFile)*20);
-//}
+
+/**************************************************************************************************/
+
 
 /* 
  * Fonction createRelation : Creer une relation, c'est a dire une structure de type RelDef
@@ -25,6 +25,8 @@ struct ListeHeapFile *listeHeapFile = NULL;
  * param nombreColonnes : nombre de colonnes dans la relation
  * param typesDesColonnes : types des colonnes de la relation
 */
+
+
 void createRelation(char nomRelation, int nombreColonnes, char typesDesColonnes){
 	struct RelDef relDef1;
 	relDef1.Schema.nom = nomRelation;
@@ -39,9 +41,18 @@ void createRelation(char nomRelation, int nombreColonnes, char typesDesColonnes)
 	createHeader(hf);
 }
 
+
+
+/**************************************************************************************************/
+
+
+
+
 /* 
  * Fonction finish : Créer un fichier "Catalog.def" et ecrit le contenu de dbDef1 dans ce fichier
 */
+
+
 int finish(){
 	    FILE* fichier = NULL;
 	    fichier = fopen("../DB/Catalog.def", "r+");
@@ -55,11 +66,20 @@ int finish(){
 	    return 0;
 }
 
+
+
+/**************************************************************************************************/
+
+
+
+
 /*  
  * Fonction refreshHeapFiles : Pour chaque relation existante dans la BDD creer une structure HeapFile correspondante et l'ajoute a
  * la liste listHeapFile.
  * 
 */
+
+
 void refreshHeapFiles(){
 	for(int i=0; i<dbDef1.compteurRelations; i++){
 		struct HeapFile heapFile;
@@ -68,11 +88,35 @@ void refreshHeapFiles(){
 	}
 }
 
+
+
+/**************************************************************************************************/
+
+
+
+/* 
+ * Fonction insert : 
+ *
+ *
+*/
+
+
+
+
+
+
+
+/**************************************************************************************************/
+
+
+
 /*
  * Foncton init : Initialise le compteur de relations de dbDef1 à 0 puis recupere le contenu du fichier
  * "Catalog.def" dans dbDef1 si le fichier existe.
  * Puis listHeapFile est mise à jour.
  */
+
+
 void init (){
 	dbDef1.compteurRelations = 0;
 	FILE* fichier;
@@ -87,7 +131,6 @@ void init (){
 	refreshHeapFiles();
 };
 
-int main(){
-	init();
-	return 0;
-};
+
+
+/**************************************************************************************************/
