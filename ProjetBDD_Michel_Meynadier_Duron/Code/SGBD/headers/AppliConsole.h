@@ -1,0 +1,4 @@
+#ifndef APPLICONSOLE_H
+#define APPLICONSOLE_H
+
+#endif /* APPLICONSOLE_H */
