@@ -3,16 +3,19 @@
 
 
 /* Structure Heapfile listant les relations existantes dans la DB */
-struct HeapFile {
+typedef struct HeapFile {
 	/* pointeur vers une structure de type RelDef */
 	struct RelDef *ptrRelDef;
-};
+}
+HeapFile;
 
-struct ListeHeapFile {
+typedef struct ListeHeapFile ListeHeapFile;
+struct ListeHeapFile{
 	struct HeapFile present;
-	struct HeapFile *nxt;
+    ListeHeapFile *nxt;
 };
 
+void ajouterEnFin(ListeHeapFile *liste, HeapFile hf);
 void createHeader();
 
 #endif /* HeapFile_H_ */
