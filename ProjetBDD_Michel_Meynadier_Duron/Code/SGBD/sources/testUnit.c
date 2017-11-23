@@ -11,8 +11,13 @@
 /*
  * Fonction testPageId : Fonction de test de toutes les fonctions du fichier PageId.c
  * CreateFile(), writePage(), readPage(), addPage()
+ * Retour attendu :
+ *   -Création d'un fichier Data_1.rf (createFile())
+ *   -Ajout d'une page vide dans ce fichier (addPage())
+ *   -Remplissage de ce fichier ((writePage())
+ *   -Vérification de l'écriture dans le fichier (readPage())
  *
-int testPageId(){
+void testPageId(){
 	int fileId = 1;
 	unsigned char * buffer = malloc(sizeof(char)*TAILLE);
 	struct PageId page = {1, 0};
@@ -28,12 +33,11 @@ int testPageId(){
 	readPage(page, buffer2);
 	printf("%s",buffer2);
 	free(buffer);
-
-	return 1;
 }
 
 /*
  * Fonction testSetValues : Test de la fonction setValues du fichier Record.c
+ * Retour attendu : Première valeur de ptrrecord correspondant à la première valeur du tableau valeurs
  *
 void testSetValues(){
 	char *valeurs[3]= {
@@ -48,10 +52,7 @@ void testSetValues(){
 
 /*
  * Fonction testsplit : Test de la fonction Split
- * Retour attendu : 
- * test
- * test
- * test
+ * Retour attendu : tous les mots de la chaîne de caractère séparés par un retour à la ligne
  *
 void testsplit(){	
 	char chaine[] = "test test test test test";
@@ -72,7 +73,8 @@ void testsplit(){
 }
 
 /*
- *
+ * Fonction testDbDef : Test de la création de la Structure DbDef
+ * Retour attendu : Affichage du nombre de relations crées
  *
 void testDbDef(){
 	struct RelSchema k = {"insert", 3, "table1"};
@@ -82,12 +84,20 @@ void testDbDef(){
 	printf("compteur de relations: %d\n", def.compteur_relations);
 }
 
+/*
+ * Fonction testRelDef : Test de la création d'une structure RelDef
+ * Retour attendu : Affichage de l'Id de la structure crée
+ *
 void testRelDef(){	struct RelSchema a = {"Bob", 4, "Nani"};
 	struct RelDef reldef1={a, 3};
 	printf("OMEWA MOU SHINJIIR\n");
 	printf("type de l'ID: %d", reldef1.FileId);
 }
 
+/*
+ * Fonction testRelSchema : Test de la création de la structure RelSchema
+ * Retour attendu : Affichage du nombre de colonnes dans le Schema crée
+ *
 void testRelSchema(){
 	struct RelSchema relschema1={.nom="Bob", .nombre_colonnes=4, .type_colonnes="peremptoire"};
 	printf("nombre de colonnes: %d", relschema1.nombre_colonnes);

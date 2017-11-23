@@ -12,12 +12,12 @@
 //Declaration de DbDef1 de type DbDef
 struct DbDef dbDef1;
 
-// Declaration de HeapFile qui est tableau d'elements de type HeapFile
-struct HeapFile *listHeapFile;
+// Declaration de listeHeapFile qui est une liste chainee d'elements de type HeapFile
+struct ListeHeapFile *listeHeapFile = NULL;
 
-void initTabHeapFile(){
-	listHeapFile = malloc(sizeof(struct HeapFile)*20);
-}
+//void initTabHeapFile(){
+	//listHeapFile = malloc(sizeof(struct HeapFile)*20);
+//}
 
 /* 
  * Fonction createRelation : Creer une relation, c'est a dire une structure de type RelDef
@@ -34,14 +34,10 @@ void createRelation(char nomRelation, int nombreColonnes, char typesDesColonnes)
 	dbDef1.listeRelations[dbDef1.compteurRelations] = relDef1;
 	dbDef1.compteurRelations ++;
 	struct HeapFile hf;
+	hf.ptrRelDef = &relDef1;
+	ajouterEnFin(listeHeapFile, hf);
 	createHeader(hf);
-	int cpt= 0;
-	while(listHeapFile[cpt].ptrRelDef==NULL){
-		cpt++;
-	}
-	listHeapFile[cpt].ptrRelDef=hf.ptrRelDef;
 }
-
 
 /* 
  * Fonction finish : Créer un fichier "Catalog.def" et ecrit le contenu de dbDef1 dans ce fichier
@@ -68,8 +64,7 @@ void refreshHeapFiles(){
 	for(int i=0; i<dbDef1.compteurRelations; i++){
 		struct HeapFile heapFile;
 		heapFile.ptrRelDef = malloc(sizeof(dbDef1.listeRelations));
-	    heapFile.ptrRelDef[i] = dbDef1.listeRelations[i];
-		listHeapFile[i] = heapFile;
+		ajouterEnFin(listeHeapFile, heapFile);
 	}
 }
 
@@ -90,4 +85,9 @@ void init (){
 		printf("Impossible d'ouvrir le fichier Catalog.def");
 	}
 	refreshHeapFiles();
+};
+
+int main(){
+	init();
+	return 0;
 };
