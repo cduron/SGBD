@@ -15,9 +15,6 @@ struct DbDef dbDef1;
 // Declaration de listeHeapFile qui est une liste chainee d'elements de type HeapFile
 struct ListeHeapFile *listeHeapFile = NULL;
 
-//void initTabHeapFile(){
-	//listHeapFile = malloc(sizeof(struct HeapFile)*20);
-//}
 
 /* 
  * Fonction createRelation : Creer une relation, c'est a dire une structure de type RelDef
@@ -25,11 +22,12 @@ struct ListeHeapFile *listeHeapFile = NULL;
  * param nombreColonnes : nombre de colonnes dans la relation
  * param typesDesColonnes : types des colonnes de la relation
 */
-void createRelation(char nomRelation, int nombreColonnes, char typesDesColonnes){
+void createRelation(char *nomRelation, int nombreColonnes, char *typesDesColonnes){
 	struct RelDef relDef1;
-	relDef1.Schema.nom = nomRelation;
-	relDef1.Schema.nombre_colonnes = nombreColonnes;
-	relDef1.Schema.type_colonnes = typesDesColonnes;
+	strcpy(relDef1.Schema.nom, nomRelation);
+	relDef1.Schema.nombreColonnes = nombreColonnes;
+	strcpy(relDef1.Schema.typeColonnes, typesDesColonnes);
+	relDef1.RecordSize = (sizeof(nomRelation)/8+sizeof(nombreColonnes)/8+sizeof(typesDesColonnes)/8);
 	relDef1.FileId = dbDef1.compteurRelations;
 	dbDef1.listeRelations[dbDef1.compteurRelations] = relDef1;
 	dbDef1.compteurRelations ++;
@@ -87,7 +85,3 @@ void init (){
 	refreshHeapFiles();
 };
 
-int main(){
-	init();
-	return 0;
-};

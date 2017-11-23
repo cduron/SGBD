@@ -23,7 +23,7 @@ typedef struct frame
 }frame;
 
 /* Fonction d'initialisation de la structure frame */
-void initStructure();
+void initStruct();
 /* Récupère une page pour la mettre dans le buffer pool */
 void getPage(PageId pageId);
 /* rend une page et spécifie si elle a été modifiée ou non */

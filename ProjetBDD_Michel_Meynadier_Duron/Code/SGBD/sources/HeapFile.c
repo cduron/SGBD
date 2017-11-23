@@ -11,6 +11,8 @@
 #include "../headers/PageId.h"
 #include "../headers/GlobalManager.h"
 #include "../headers/Constante.h"
+#include "../headers/HeaderPageInfo.h"
+
 
 
 /*
@@ -51,18 +53,31 @@ void ajouterEnFin(struct ListeHeapFile *liste, struct HeapFile hf){
 }
 
 /*
-int main(){
+void readHeaderPageInfo(char *buffer ,HeaderPageInfo Hpi){
+readpage()
+}
+*/
 
+
+int main(){
 	initStruct();
-	struct RelSchema k = {"insert", 3, "table1"};
+	struct ListeHeapFile *listeHeapFile = NULL;
+	struct RelSchema k = {"nani", 3, "yamero"};
 	struct RelDef a={k, 6};
 	struct RelDef *b= &a;
 	struct DbDef def={b, 3};
 	printf("compteur de relations: %d\n", def.compteurRelations);
 	struct HeapFile hf = {b};
-	createHeader(hf);
+	ajouterEnFin(listeHeapFile, hf);
+    ListeHeapFile *actuel = listeHeapFile;
+    while (actuel->nxt != NULL)
+    {
+        printf("%d -> ", actuel->present->ptrRelDef->FileId);
+    }
+    printf("NULL\n");
+	//createHeader(hf);
 	
 
 	return 0;
 }
-*/
+

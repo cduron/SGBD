@@ -5,11 +5,11 @@
 /* Structure d'une relation */
 struct RelSchema {
 	/*Nom de la relation ex: CREATE */
-	char nom;
+	char *nom;
 	/* Nombre maximum d'argument du Schema */
-	int nombre_colonnes;
+	int nombreColonnes;
 	/* Type de colonnes */ 
-	char type_colonnes;
+	char *typeColonnes;
 };
 
 
@@ -19,6 +19,10 @@ struct RelDef {
 	struct RelSchema Schema;
 	/* Identifiant du fichier */
 	int FileId;
+	/* Taille d'un record en octets quand on l'écrit sur une page */
+	int RecordSize;
+	/* Nombre total de cases sur une page */
+	int SlotCount;
 };
 
 /* Structure DbDef listant les relations existantes dans la DB */
