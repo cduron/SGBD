@@ -16,6 +16,10 @@ struct DbDef dbDef1;
 struct ListeHeapFile *listeHeapFile = NULL;
 
 
+
+/**************************************************************************************************/
+
+
 /* 
  * Fonction createRelation : Creer une relation, c'est a dire une structure de type RelDef
  * param nomRelation : nom de la relation créée
@@ -37,9 +41,18 @@ void createRelation(char *nomRelation, int nombreColonnes, char *typesDesColonne
 	createHeader(hf);
 }
 
+
+
+/**************************************************************************************************/
+
+
+
+
 /* 
  * Fonction finish : Créer un fichier "Catalog.def" et ecrit le contenu de dbDef1 dans ce fichier
 */
+
+
 int finish(){
 	    FILE* fichier = NULL;
 	    fichier = fopen("../DB/Catalog.def", "r+");
@@ -53,11 +66,20 @@ int finish(){
 	    return 0;
 }
 
+
+
+/**************************************************************************************************/
+
+
+
+
 /*  
  * Fonction refreshHeapFiles : Pour chaque relation existante dans la BDD creer une structure HeapFile correspondante et l'ajoute a
  * la liste listHeapFile.
  * 
 */
+
+
 void refreshHeapFiles(){
 	for(int i=0; i<dbDef1.compteurRelations; i++){
 		struct HeapFile heapFile;
@@ -66,11 +88,35 @@ void refreshHeapFiles(){
 	}
 }
 
+
+
+/**************************************************************************************************/
+
+
+
+/* 
+ * Fonction insert : 
+ *
+ *
+*/
+
+
+
+
+
+
+
+/**************************************************************************************************/
+
+
+
 /*
  * Foncton init : Initialise le compteur de relations de dbDef1 à 0 puis recupere le contenu du fichier
  * "Catalog.def" dans dbDef1 si le fichier existe.
  * Puis listHeapFile est mise à jour.
  */
+
+
 void init (){
 	dbDef1.compteurRelations = 0;
 	FILE* fichier;
@@ -85,3 +131,7 @@ void init (){
 	refreshHeapFiles();
 };
 
+
+
+
+/**************************************************************************************************/

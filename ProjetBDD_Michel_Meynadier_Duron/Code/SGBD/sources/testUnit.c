@@ -17,7 +17,7 @@
  *   -Remplissage de ce fichier ((writePage())
  *   -Vérification de l'écriture dans le fichier (readPage())
  *
-int testPageId(){
+void testPageId(){
 	int fileId = 1;
 	unsigned char * buffer = malloc(sizeof(char)*TAILLE);
 	struct PageId page = {1, 0};
@@ -33,8 +33,6 @@ int testPageId(){
 	readPage(page, buffer2);
 	printf("%s",buffer2);
 	free(buffer);
-
-	return 1;
 }
 
 /*
