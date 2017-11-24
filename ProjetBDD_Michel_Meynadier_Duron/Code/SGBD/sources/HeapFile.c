@@ -58,26 +58,36 @@ readpage()
 }
 */
 
-
+/*
 int main(){
 	initStruct();
-	struct ListeHeapFile *listeHeapFile = NULL;
 	struct RelSchema k = {"nani", 3, "yamero"};
-	struct RelDef a={k, 6};
-	struct RelDef *b= &a;
+	struct RelDef a={k, 6, 5, 4};
+	struct RelDef *b= malloc(sizeof(*b));
+	b = &a;
 	struct DbDef def={b, 3};
+	struct ListeHeapFile *listeHeapfile = malloc(sizeof(*listeHeapfile));
+	struct  HeapFile hf = {b};
+	    if (listeHeapfile == NULL)
+	    {
+	        exit(EXIT_FAILURE);
+	    }
+	    listeHeapfile->nxt = NULL;
+	    listeHeapfile->present = hf;
 	printf("compteur de relations: %d\n", def.compteurRelations);
-	struct HeapFile hf = {b};
-	ajouterEnFin(listeHeapFile, hf);
-    ListeHeapFile *actuel = listeHeapFile;
-    while (actuel->nxt != NULL)
-    {
-        printf("%d -> ", actuel->present->ptrRelDef->FileId);
-    }
+	ajouterEnFin(listeHeapfile, hf);
+	printf("-> %d\n", hf.ptrRelDef->FileId );
+	ListeHeapFile *actuel = listeHeapfile;
+	while (actuel->nxt != NULL)
+		{
+			printf("-> %d\n", actuel->present.ptrRelDef->FileId);
+			actuel = actuel->nxt;
+
+		}
     printf("NULL\n");
 	//createHeader(hf);
 	
 
 	return 0;
 }
-
+*/
