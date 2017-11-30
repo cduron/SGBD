@@ -7,6 +7,7 @@
 
 #include "../headers/GlobalManager.h"
 #include "../headers/HeapFile.h"
+#include "../headers/Record.h"
 
 
 //Declaration de DbDef1 de type DbDef
@@ -95,12 +96,21 @@ void refreshHeapFiles(){
 
 
 /* 
- * Fonction insert : 
+ * Fonction insert :
  *
  *
 */
+/*
+ * Fonction insert : Ajout d'un record à une relation
+ * param nomRelation : La relation à laquelle il faut ajouter le record
+ * param listeValeurs : liste des Valeurs à ajouter à la relation
+*/
 
-
+void insert (char * nomRelation, char * listeValeurs){
+	struct Record record;
+	record.ptrrecord = NULL;
+	setValues(listeValeurs, record);
+}
 
 
 
