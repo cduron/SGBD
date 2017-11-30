@@ -58,7 +58,7 @@ void testsplit(){
 	char chaine[] = "test test test test test";
 	printf("%s\n\n", chaine);
 	printf("Alloue\n\n");
-	char **souschaine = split(chaine, " ", 4);
+	char **souschaine = split(chaine, " ");
 	if(souschaine==NULL)
 		printf("ERREUR D'AFFECTATION\n");
 	if(souschaine==NULL){
