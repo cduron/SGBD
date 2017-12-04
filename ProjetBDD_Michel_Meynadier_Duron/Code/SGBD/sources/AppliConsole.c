@@ -18,21 +18,25 @@ void traitementConsole(char commande[]){
 
 	const char s[1] = " ";
 	char *token;
+	//token prend la valeur du premier mot de la chaîne commande [chaîne de caractère située avant le " "]
 	token = strtok(commande,s);
-	printf("Commande : %s\n",token);
+
+	//Si la commande est un insert
 	if(strcmp(token,"insert")==0){
-		char * nomRelation;
-		nomRelation = strtok(NULL,commande);
-		printf("nomRel : %s\n",nomRelation);
-		char *listeValeurs;
+		//Pour faire un insert, il faut le nom de la relation : 2ème élément de la chaîne commande
+
+		token = strtok(NULL,s);
+		char * nomRelation = token;
+
+		//Puis la liste des valeurs à insérer, les n valeurs suivantes
+		char *listeValeurs = NULL;
 		int i=0;
 		while( token != NULL ) {
-			printf("Liste des valeurs : %s   ",token);
-			//*(listeValeurs+i)= strtok(NULL, commande);
 			token = strtok(NULL, s);
+			//*(listeValeurs+i)=token;
+			i++;
 		}
-		/*printf("%s",listeValeurs);
-		insert (nomRelation,listeValeurs);*/
+		//insert (nomRelation,listeValeurs);
 	}
 
 	else {
