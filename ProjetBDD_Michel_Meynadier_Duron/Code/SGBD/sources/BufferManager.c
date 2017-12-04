@@ -18,9 +18,10 @@ frame buffer_pool[F];
 */ 
 void initStruct(){
 	for(int i = 0;i<F;i++){
-		buffer_pool[i].buffer=malloc(sizeof(char)*TAILLE);
-		if(buffer_pool[i].buffer==NULL){
-			printf("P Error\n");
+		while(buffer_pool[i].buffer == NULL){
+			buffer_pool[i].buffer=malloc(sizeof(char)*TAILLE);	
+			if(buffer_pool[i].buffer==NULL)
+				printf("P Error\n");
 		}
 		buffer_pool[i].page.fileId=0;
 		buffer_pool[i].page.idX=0;

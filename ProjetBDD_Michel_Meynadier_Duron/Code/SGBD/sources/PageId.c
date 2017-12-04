@@ -17,8 +17,10 @@
 void createFile(int fileId){
 	FILE* fh;
 	//on passe FileId en chaine de caracteres eton créé une chaine de caracteres correspondant à l'adresse du fichier
-
-	char * adresse = malloc(sizeof(char)*100);
+	char * adresse;
+	while(adresse == NULL){
+	 	adresse = malloc(sizeof(char)*100);	
+	}
 	nameFile(fileId, adresse);
 	//on créé et on ouvre le fichier binaire d'adresse Data_FileId.rf dans le répertoire DB
 	// Si le fichier n'existe pas, en mode (w) le fichier est créé, si il existe il est écrasé
@@ -43,7 +45,10 @@ void createFile(int fileId){
 int addPage(int fileIdx){
 	//on ouvre le fichier correspondant
 	FILE* fichier;
-	char * adresse = malloc(sizeof(char)*100);
+	char * adresse;
+	while(adresse == NULL){
+		adresse = malloc(sizeof(char)*100);	
+	}
 	nameFile(fileIdx, adresse);
 	fichier = fopen(adresse, "a+b"); 
 
@@ -59,7 +64,9 @@ int addPage(int fileIdx){
 
 	//Création d'un tableau contenant les (4096-1) bytes (un char = un byte) à ajouter à la fin du fichier pour créer le bloc de 4Ko
 	char * ptab;
-	ptab = calloc(TAILLE, sizeof(char));
+	while(ptab == NULL){
+		ptab = calloc(TAILLE, sizeof(char));	
+	}
 
 	//Ecriture dans le fichier binaire	
 	fwrite( ptab , sizeof(char) , TAILLE , fichier);
@@ -85,10 +92,12 @@ int addPage(int fileIdx){
 
 void readPage(PageId page, char *buffer){
 	//on passe FileId en chaine de charactere
-	char * adresse = malloc(sizeof(char)*100);
+	char * adresse;
+	while(adresse == NULL){
+		adresse = malloc(sizeof(char)*100);
+	}
+	
 	nameFile(page.fileId, adresse);
-
-
 	FILE *fic;
 
 	// Ouverture du fichier d'identifiant PageId

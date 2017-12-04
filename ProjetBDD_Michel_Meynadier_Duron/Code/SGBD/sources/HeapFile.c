@@ -22,7 +22,13 @@
 void createHeader(struct HeapFile hf){
 	int idX = addPage(hf.ptrRelDef->FileId);
 	PageId pageHeapFile = {hf.ptrRelDef->FileId, idX};
-	char *buffer = malloc(sizeof(char)*TAILLE);
+	char *buffer;
+	while(buffer==NULL){
+		buffer= malloc(sizeof(char)*TAILLE);
+		if(buffer==NULL){
+			printf("Erreur affectation");
+		}
+	} 
 	buffer="0";
 	writePage(pageHeapFile, buffer);
 	getPage(pageHeapFile);
@@ -35,7 +41,13 @@ void createHeader(struct HeapFile hf){
  * Param  HeapFile
  */
 void ajouterEnFin(struct ListeHeapFile *liste, struct HeapFile hf){
-	ListeHeapFile *nouvelHf = malloc(sizeof(*nouvelHf));
+	ListeHeapFile *nouvelHf;
+	while(nouvelHf == NULL){
+		nouvelHf= malloc(sizeof(*nouvelHf));	
+		if(nouvelHf==NULL){
+			printf("Erreur affectation");
+		}
+	}
 	nouvelHf->present = hf;
 	nouvelHf->nxt = NULL;
 	if(liste == NULL){
