@@ -83,7 +83,6 @@ char **split(char *chaine, char* separateur){
 		token = strtok(NULL, separateur);
 		/*Stock le token au tableau */
 		if(token!='\0'){
-			printf("%s\n\n", token);
 			rtnchaine[ligne]=token;
 			ligne++;
 		}
