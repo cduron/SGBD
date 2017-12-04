@@ -36,7 +36,7 @@ int main(){
     printf("NULL\n");
 	//createHeader(hf);*/
 
-	char commande[80] = "insert jjkkljknom 556566 va2123123l2 val3";
+	char commande[80] = "insert nomrel 556566 va2123123l2 val3";
 	traitementConsole(commande);
 	return(0);
 
