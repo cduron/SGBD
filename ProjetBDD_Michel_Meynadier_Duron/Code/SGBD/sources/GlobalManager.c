@@ -29,6 +29,7 @@ struct ListeHeapFile *listeHeapFile = NULL;
 */
 void createRelation(char *nomRelation, int nombreColonnes, char *typesDesColonnes){
 	struct RelDef relDef1;
+	relDef1.Schema.nom = malloc(sizeof(char)*strlen(nomRelation));
 	strcpy(relDef1.Schema.nom, nomRelation);
 	relDef1.Schema.nombreColonnes = nombreColonnes;
 	strcpy(relDef1.Schema.typeColonnes, typesDesColonnes);

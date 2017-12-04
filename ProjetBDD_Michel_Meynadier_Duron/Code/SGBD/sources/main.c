@@ -1,11 +1,15 @@
 /*
  *	main.c
  */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "../headers/GlobalManager.h"
+#include "../headers/AppliConsole.h"
 
 int main(){
-	initStruct();
+	/*initStruct();
 	struct RelSchema k = {"nani", 3, "yamero"};
 	struct RelDef a={k, 6, 5, 4};
 	struct RelDef *b= malloc(sizeof(*b));
@@ -30,5 +34,10 @@ int main(){
 
 		}
     printf("NULL\n");
-	//createHeader(hf);
+	//createHeader(hf);*/
+
+	char commande[80] = "insert jjkkljknom 556566 va2123123l2 val3";
+	traitementConsole(commande);
+	return(0);
+
 }

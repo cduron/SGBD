@@ -33,7 +33,8 @@ struct DbDef {
 	int compteurRelations;
 };
 
-
+/* Fonction insert */
+void insert (char * nomRelation, char * listeValeurs);
 
 /* Initialisation de l'application */
 void init();
