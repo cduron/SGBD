@@ -6,19 +6,17 @@
 
 #include "PageId.h"
 
-/*
-*	Structure d'une frame
-*	le buffer permet de stocker une page
-*	pageId est l'id de la page ouverte
-*	le flag permet de savoir si le fichier a été modifier ou non
-*	pinCount permet si une frame est occupée
-*/
 
+/* Structure d'une Frame */
 typedef struct frame
 {
+	/* buffer possédant le contenue d'une page */
 	char* buffer;
+	/* Id de la page contenue dans la frame */
 	PageId page;
+	/* flag permettant de voir savoir si elle a été modifié ou non */
 	char flag;
+	/* compteur d'utilisateur */
 	int pin_count;
 }frame;
 

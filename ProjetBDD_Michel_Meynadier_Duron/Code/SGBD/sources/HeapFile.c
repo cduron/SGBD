@@ -11,7 +11,6 @@
 #include "../headers/PageId.h"
 #include "../headers/GlobalManager.h"
 #include "../headers/Constante.h"
-#include "../headers/HeaderPageInfo.h"
 
 frame buffer_pool[F];
 

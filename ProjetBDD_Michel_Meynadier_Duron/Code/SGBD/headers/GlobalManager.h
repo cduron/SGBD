@@ -1,7 +1,6 @@
 #ifndef GLOBALMANAGER_H
 #define GLOBALMANAGER_H
 
-
 /* Structure d'une relation */
 struct RelSchema {
 	/*Nom de la relation ex: CREATE */

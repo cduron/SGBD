@@ -10,13 +10,15 @@ typedef struct HeapFile {
 }
 HeapFile;
 
-typedef struct ListeHeapFile ListeHeapFile;
-struct ListeHeapFile{
+/* Liste chaîné d'HeapFile */
+typedef struct ListeHeapFile{
+	/* Un HeapFile */
 	struct HeapFile present;
-    ListeHeapFile *nxt;
-};
+    /* Accès au HeapFile suivant */
+    struct ListeHeapFile *nxt;
+}ListeHeapFile;
 
-
+/* Liste chaîné des références des pages et du nombre de slots disponibles */
 typedef struct TabCouples TabCouples;
 struct TabCouples{
 	int  IdxPage;
@@ -26,8 +28,10 @@ struct TabCouples{
 
 /* Création de la structure HeaderPageInfo */
 typedef struct HeaderPageInfo {
-  int NbPageDeDonnees;
-  struct TabCouples tableauCouples;
+	/* */
+  	int NbPageDeDonnees;
+  	/* */
+  	struct TabCouples tableauCouples;
 }HeaderPageInfo;
 
 
