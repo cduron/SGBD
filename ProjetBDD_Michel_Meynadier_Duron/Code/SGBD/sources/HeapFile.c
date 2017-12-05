@@ -13,11 +13,11 @@
 #include "../headers/Constante.h"
 #include "../headers/HeaderPageInfo.h"
 
-
+frame buffer_pool[F];
 
 /*
  * Fonction createHeader : Création d'une HeaderPage
- * Param HeapFile : HeapFile
+ * Param HeapFile hf : HeapFile
 */
 void createHeader(struct HeapFile hf){
 	int idX = addPage(hf.ptrRelDef->FileId);
@@ -37,8 +37,8 @@ void createHeader(struct HeapFile hf){
 
 /*
  * Fonction ajouterEnFin : Ajout d'un HeapFile a là fin d'une liste chainee ListeHeapFile
- * Param ListeHeapFile
- * Param  HeapFile
+ * Param ListeHeapFile *liste : la liste des HeapFiles
+ * Param HeapFile hf : le HeapFile que l'on veut ajouter
  */
 void ajouterEnFin(struct ListeHeapFile *liste, struct HeapFile hf){
 	ListeHeapFile *nouvelHf;
@@ -65,41 +65,60 @@ void ajouterEnFin(struct ListeHeapFile *liste, struct HeapFile hf){
 }
 
 /*
-void readHeaderPageInfo(char *buffer ,HeaderPageInfo Hpi){
-readpage()
+ * Fonction readHeaderPageInfo : lecture du HeaderPage et affectation des Info dans le HeaderPageInfo
+ * Param char *buffer : buffer contenant les information du Header
+ * Param HeaderPageInfo hpi : Stockage des information du Header
+ */
+void readHeaderPageInfo(char *buffer, struct HeaderPageInfo hpi){
+	
+	PageId idHeader = {0, 1};
+	readPage(idHeader,buffer);
+	if((hpi.NbPageDeDonnees=strlen(buffer)/TAILLE)<0)
+		printf("Erreur de TAILLE\n");
+	hpi.tableauCouples.NbSlotsRestantDisponible = F - hpi.NbPageDeDonnees;
+	hpi.tableauCouples.IdxPage = 0;
+	TabCouples *lecteur=malloc(sizeof(TabCouples));
+	lecteur=hpi.tableauCouples.nxt;
+	for(int i = 1;i<hpi.NbPageDeDonnees;i++){
+		lecteur->IdxPage=i;
+		lecteur=lecteur->nxt;
+	}
+	
 }
-*/
+
 
 /*
-int main(){
-	initStruct();
-	struct RelSchema k = {"nani", 3, "yamero"};
-	struct RelDef a={k, 6, 5, 4};
-	struct RelDef *b= malloc(sizeof(*b));
-	b = &a;
-	struct DbDef def={b, 3};
-	struct ListeHeapFile *listeHeapfile = malloc(sizeof(*listeHeapfile));
-	struct  HeapFile hf = {b};
-	    if (listeHeapfile == NULL)
-	    {
-	        exit(EXIT_FAILURE);
-	    }
-	    listeHeapfile->nxt = NULL;
-	    listeHeapfile->present = hf;
-	printf("compteur de relations: %d\n", def.compteurRelations);
-	ajouterEnFin(listeHeapfile, hf);
-	printf("-> %d\n", hf.ptrRelDef->FileId );
-	ListeHeapFile *actuel = listeHeapfile;
-	while (actuel->nxt != NULL)
-		{
-			printf("-> %d\n", actuel->present.ptrRelDef->FileId);
-			actuel = actuel->nxt;
-
-		}
-    printf("NULL\n");
-	//createHeader(hf);
-	
-
-	return 0;
+ * Fonction writeHeaderPageInfo : Ecriture du HeaderPage
+ *
+ * Param char * buffer : buffer contenant les informations du Header
+ * Param HeaderPageInfo hpi : Information du header
+ */
+void writeHeaderPageInfo(char *buffer, struct HeaderPageInfo hpi){
+	PageId idHeader = {0, 0};
+	writePage(idHeader, buffer);
+	free(buffer);
 }
-*/
+
+
+/*
+ * Fonction writeHeaderPageInfo : Permet de récupérer le HeaderPageInfo
+ * 
+ * Param HeaderPageInfo hpi : Header déjà instancié.
+ */
+void getHeaderPageInfo(struct HeaderPageInfo hpi){
+	PageId idHeader = {0, 0};
+	getPage(idHeader);
+	readHeaderPageInfo(buffer_pool[0].buffer,hpi);
+	freePage(idHeader,'0');
+}
+
+
+/*
+ * Fonction writeHeaderPageInfo : Permet de mettre à jour le HeaderPage, par rapport à une nouvelle page
+ * 
+ * Param PageId nwpage : Id de la nouvelle page récement créer.
+ */
+
+void updateHeaderNewDataPage(PageId nwpage){
+
+}

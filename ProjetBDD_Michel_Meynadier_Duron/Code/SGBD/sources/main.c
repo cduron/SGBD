@@ -38,6 +38,7 @@ int main(){
 
 	char commande[80] = "insert nomrel 556566 va2123123l2 val3";
 	traitementConsole(commande);
+	printf("%s\n", commande);
 	return(0);
 
 }
