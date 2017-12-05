@@ -48,7 +48,7 @@ void traitementConsole(char *commande){
 
 		//Puis on fait le insert avec comme liste de Valeurs la suite de la chaîne commande
 		strcpy(c3,c2+strlen(token)+1);
-		insert (nomRelation,c3);
+		insert(nomRelation,c3);
 
 		free(c3);
 	}

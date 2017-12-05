@@ -65,7 +65,8 @@ int addPage(int fileIdx){
 	//Création d'un tableau contenant les (4096-1) bytes (un char = un byte) à ajouter à la fin du fichier pour créer le bloc de 4Ko
 	char * ptab;
 	while(ptab == NULL){
-		ptab = calloc(TAILLE, sizeof(char));	
+		ptab = calloc(TAILLE, sizeof(char));
+		printf("Erreur allocation");
 	}
 
 	//Ecriture dans le fichier binaire	
