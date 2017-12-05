@@ -29,7 +29,9 @@ struct ListeHeapFile *listeHeapFile = NULL;
 */
 void createRelation(char *nomRelation, int nombreColonnes, char *typesDesColonnes){
 	struct RelDef relDef1;
-	relDef1.Schema.nom = malloc(sizeof(char)*strlen(nomRelation));
+	while(relDef1.Schema.nom == NULL){
+		relDef1.Schema.nom = malloc(sizeof(char)*strlen(nomRelation));
+	}
 	strcpy(relDef1.Schema.nom, nomRelation);
 	relDef1.Schema.nombreColonnes = nombreColonnes;
 	strcpy(relDef1.Schema.typeColonnes, typesDesColonnes);
@@ -85,7 +87,9 @@ int finish(){
 void refreshHeapFiles(){
 	for(int i=0; i<dbDef1.compteurRelations; i++){
 		struct HeapFile heapFile;
-		heapFile.ptrRelDef = malloc(sizeof(dbDef1.listeRelations));
+		while(heapFile.ptrRelDef == NULL){
+			heapFile.ptrRelDef = malloc(sizeof(dbDef1.listeRelations));
+		}
 		ajouterEnFin(listeHeapFile, heapFile);
 	}
 }

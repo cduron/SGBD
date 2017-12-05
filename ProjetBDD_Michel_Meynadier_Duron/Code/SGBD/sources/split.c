@@ -56,28 +56,32 @@ char **split(char *chaine, char* separateur){
 	char *token;
 	int nbColonne = nbMotAvantSeparateur(" ", chaine);
 	/* Alloue le tableau de retour */
-	char ** rtnchaine=malloc(sizeof(char*)*(nbColonne+1));
-	if(rtnchaine==NULL)
-	{
-		printf("Erreur rtnchaine NULL\n");
-		free(rtnchaine);
-		return NULL;
-	
+	char ** rtnchaine;
+	while(rtnchaine == NULL){
+		rtnchaine=malloc(sizeof(char*)*(nbColonne+1));
+		if(rtnchaine==NULL)
+		{
+			printf("Erreur rtnchaine NULL\n");
+			free(rtnchaine);
+		}
 	}
 	/*Affecte le premier mot dans token */
 	token=strtok(chaine, separateur);
 	/*Alloue la taille du mot à la ligne 0 */
-	rtnchaine[ligne]=malloc(sizeof(char)*(nbLettreAvantSeparateur(separateur, chaine)+1));
+	while(rtnchaine[ligne]==NULL){
+		rtnchaine[ligne]=malloc(sizeof(char)*(nbLettreAvantSeparateur(separateur, chaine)+1));
+	}
 	/*Stock le mot dans le tableau */
 	rtnchaine[ligne]=token;
 	ligne++;
 	while(token!=NULL){
 		/* Alloue la taille du mot à la ligne suivante */
-		rtnchaine[ligne]=malloc(sizeof(char)*(nbLettreAvantSeparateur(separateur, chaine)+1));
-		if(rtnchaine[ligne]==NULL){
-			printf("Erreur rtnchaine[%d] NULL\n", ligne);
-			free(rtnchaine);
-			return NULL;
+		while(rtnchaine[ligne]==NULL){
+			rtnchaine[ligne]=malloc(sizeof(char)*(nbLettreAvantSeparateur(separateur, chaine)+1));
+			if(rtnchaine[ligne]==NULL){
+				printf("Erreur rtnchaine[%d] NULL\n", ligne);
+				free(rtnchaine);
+			}
 		}
 		/*Stock le mot dans token */
 		token = strtok(NULL, separateur);

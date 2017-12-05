@@ -150,7 +150,10 @@ void nameFile(int fileIdx, char *adresse){
 
 void writePage(PageId page, char *buffer){
 	//on passe FileId en chaine de charactere et on concatene
-	char * adresse = malloc(sizeof(char)*100);
+	char * adresse;
+	while(adresse == NULL){
+		adresse = malloc(sizeof(char)*100);
+	}
 	nameFile(page.fileId, adresse);
 	// OufileIdxverture du fichier binaire (b) en mode ajout (a)
 	FILE *fic;
