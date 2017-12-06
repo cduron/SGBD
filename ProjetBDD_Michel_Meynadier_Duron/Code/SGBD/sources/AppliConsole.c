@@ -50,9 +50,7 @@ void traitementConsole(char *commande){
 		chaineFichier = malloc(sizeof(char)*40);
 		char adresse [15]= "../DB/";
 		strcat(adresse, c2);
-		printf("%s\n", adresse);
-		//On ouvre le fichier
-		fichier = fopen("../DB/R1.csv", "r");
+		fichier = fopen(adresse, "r");
 	  	char chaine[100000] = "";
 		//On lit les lignes du fichier
 		if (fichier != NULL){
