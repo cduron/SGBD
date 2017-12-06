@@ -187,3 +187,14 @@ void writePageBitmapInfo(char *buffer, struct PageBitmapInfo pbi){
 void writeRecordInBuffer(struct Record rec, char *buffer, int offset){
 
 }
+
+/*
+ * Fonction addDataPage : ajoute une page de données
+ *
+ */
+PageId addDataPage(){
+	PageId newPage;
+	newPage.idX = addPage(0);
+	newPage.fileId=0;
+	updateHeaderNewDataPage(newPage);
+}

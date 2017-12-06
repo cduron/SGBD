@@ -65,4 +65,7 @@ void writePageBitmapInfo(char *buffer, struct PageBitmapInfo pbi);
 /* Ecrit les champs du record à l’offset indiqué par l’argument */
 void writeRecordInBuffer(struct Record rec, char *buffer, int offset);
 
+/* Ajoute une page de données */
+PageId addDataPage();
+
 #endif /* HeapFile_H_ */
