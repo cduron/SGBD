@@ -185,7 +185,7 @@ void writePageBitmapInfo(char *buffer, struct PageBitmapInfo pbi){
  *
  */
 void writeRecordInBuffer(struct Record rec, char *buffer, int offset){
-
+		memcpy(buffer, rec.ptrrecord[offset], strlen(rec.ptrrecord[offset])+1);
 }
 
 /*
