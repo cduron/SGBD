@@ -35,21 +35,26 @@ void traitementConsole(char *commande){
 		printf("insert réussi");
 
 	}
-
+	
+	//Si l'opérateur est un fill : permet d'insérer le contenu situé dans un ficher dans un record de la relation nommée en 2ème argument
 	else if (strcmp(token,"fill")==0){
 		char * c2;
 		c2=malloc(sizeof(char)*strlen(commande));
 		token = strtok(NULL,separateurEspace);
 		strcpy(c2, (commande+taille+strlen(token)+1));
+		//On extrait le nom de la relation
 		char * nomRelation = token;
 		FILE* fichier = NULL;
 		char * chaineFichier;
+		// On extrait le nom du fichier
 		chaineFichier = malloc(sizeof(char)*40);
 		char adresse [15]= "../DB/";
 		strcat(adresse, c2);
 		printf("%s\n", adresse);
+		//On ouvre le fichier
 		fichier = fopen("../DB/R1.csv", "r");
 	  	char chaine[100000] = "";
+		//On lit les lignes du fichier
 		if (fichier != NULL){
 			while (fgets(chaine, 100000, fichier) != NULL)
 			{
@@ -81,6 +86,7 @@ void traitementConsole(char *commande){
         fclose(fichier);
 
 	}
+	//Si l'utilisateur fait un exit
 	else if (strcmp(token,"exit")==0){
 		finish();
 	}
