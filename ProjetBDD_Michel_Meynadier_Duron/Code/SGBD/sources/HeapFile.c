@@ -245,3 +245,14 @@ void insertRecordInPage (struct Record rec, PageId page){
 	freePage(page,1);
 
 }
+
+/*
+ * Fonction insertRecord : insérer un record dans une relation
+ * param rec : record
+ * param lhpf : liste de HeapFile
+ *
+ */
+void insertRecord (struct Record rec,struct ListeHeapFile lhpf){
+	PageId page = getFreePageId();
+	insertRecordInPage(rec, page);
+}

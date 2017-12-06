@@ -67,6 +67,7 @@ int finish(){
 	    else {
 	        printf("Impossible d'ouvrir le fichier Catalog.def");
 	    }
+	    flushAll();
 	    return 0;
 }
 
@@ -100,11 +101,6 @@ void refreshHeapFiles(){
 
 
 
-/* 
- * Fonction insert :
- *
- *
-*/
 /*
  * Fonction insert : Ajout d'un record à une relation
  * param nomRelation : La relation à laquelle il faut ajouter le record
@@ -115,6 +111,17 @@ void insert (char * nomRelation, char * listeValeurs){
 	struct Record record;
 	record.ptrrecord = NULL;
 	setValues(listeValeurs, record);
+	int idHp = -3;
+	for(int i=0; i<dbDef1.compteurRelations;i++){
+		if(strcmp(dbDef1.listeRelations->Schema.nom,nomRelation)==0)
+			idHp=i;
+	}
+	if(idHp==0){
+		printf("Erreur");
+		return EXIT_FAILURE;
+	}
+	insertRecord(record,listeHeapFile[idHp]);
+
 }
 
 

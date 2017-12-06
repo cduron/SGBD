@@ -73,4 +73,7 @@ PageId getFreePageId();
 
 /* Ecrit le record dans la page */
 void insertRecordInPage (struct Record rec, PageId page);
+
+/* Insérer un record dans une relation */
+void insertRecord (struct Record rec,struct ListeHeapFile lhpf);
 #endif /* HeapFile_H_ */
