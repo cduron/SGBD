@@ -14,6 +14,9 @@
 
 frame buffer_pool[F];
 
+// Declaration de listeHeapFile qui est une liste chainee d'elements de type HeapFile
+struct ListeHeapFile *listeHeapFile;
+
 /*
  * Fonction createHeader : Création d'une HeaderPage
  * Param HeapFile hf : HeapFile
@@ -69,33 +72,28 @@ void ajouterEnFin(struct ListeHeapFile *liste, struct HeapFile hf){
  * Param HeaderPageInfo hpi : Stockage des information du Header
  */
 void readHeaderPageInfo(char *buffer, struct HeaderPageInfo hpi){
-	
-	PageId idHeader = {0, 1};
-	readPage(idHeader,buffer);
-	if((hpi.NbPageDeDonnees=strlen(buffer)/TAILLE)<0)
-		printf("Erreur de TAILLE\n");
-	hpi.tableauCouples.NbSlotsRestantDisponible = F - hpi.NbPageDeDonnees;
-	hpi.tableauCouples.IdxPage = 0;
-	TabCouples *lecteur=malloc(sizeof(TabCouples));
-	lecteur=hpi.tableauCouples.nxt;
-	for(int i = 1;i<hpi.NbPageDeDonnees;i++){
-		lecteur->IdxPage=i;
-		lecteur=lecteur->nxt;
+	hpi.NbPageDeDonnees = strtol(buffer,NULL,10);
+	hpi.tableauCouples.IdxPage = malloc(sizeof(char)*hpi.NbPageDeDonnees);
+	for(int i =0, j=0; i<hpi.NbPageDeDonnees || j<hpi.NbPageDeDonnees; i++, j+2){
+		hpi.tableauCouples.IdxPage[i]=buffer[j];
+		hpi.tableauCouples.NbSlotsRestantDisponible[i]=buffer[j+1];
 	}
-	
+	free(buffer);
 }
 
 
 /*
  * Fonction writeHeaderPageInfo : Ecriture du HeaderPage
  *
- * Param char * buffer : buffer contenant les informations du Header
+ * Param char * buffer : buffer qui contiendra les informations du Header
  * Param HeaderPageInfo hpi : Information du header
  */
 void writeHeaderPageInfo(char *buffer, struct HeaderPageInfo hpi){
-	PageId idHeader = {0, 0};
-	writePage(idHeader, buffer);
-	free(buffer);
+	sprintf(buffer, "%d", hpi.NbPageDeDonnees);
+	for(int i =0, j=0; i<hpi.NbPageDeDonnees || j<hpi.NbPageDeDonnees; i++,j+2){
+		buffer[j]=hpi.tableauCouples.IdxPage[i];
+		buffer[j+1]=hpi.tableauCouples.NbSlotsRestantDisponible[i];
+	}
 }
 
 
@@ -113,11 +111,31 @@ void getHeaderPageInfo(struct HeaderPageInfo hpi){
 
 
 /*
- * Fonction writeHeaderPageInfo : Permet de mettre à jour le HeaderPage, par rapport à une nouvelle page
+ * Fonction updateHeaderNewDataPage : Permet de mettre à jour le HeaderPage, par rapport à une nouvelle page
  * 
  * Param PageId nwpage : Id de la nouvelle page récement créer.
  */
 
 void updateHeaderNewDataPage(PageId nwpage){
+	char *buffer = buffer_pool[0].buffer;
+	HeaderPageInfo hpi;
+	readHeaderPageInfo(buffer, hpi);
+	hpi.tableauCouples.IdxPage=nwpage.idX;
+	hpi.tableauCouples.NbSlotsRestantDisponible=listeHeapFile->present.ptrRelDef->SlotCount;
+	writeHeaderPageInfo(buffer, hpi);
+	free(buffer);
+}
 
+
+/*
+ * Fonction updateHeaderTakenSlot : Permet de mettre à jour le HeaderPage, par rapport à une nouvelle page
+ * 
+ * Param PageId nwpage : Id de la nouvelle page récement créée.
+ */
+
+void updateHeaderTakenSlot(PageId page){
+	HeaderPageInfo hpi;
+	char *buffer = buffer_pool[0].buffer;
+	readHeaderPageInfo(buffer, hpi);
+	hpi.tableauCouples.NbSlotsRestantDisponible--;
 }
