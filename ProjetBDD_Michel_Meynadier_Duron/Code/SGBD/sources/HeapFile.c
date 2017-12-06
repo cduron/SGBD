@@ -74,10 +74,15 @@ void ajouterEnFin(struct ListeHeapFile *liste, struct HeapFile hf){
 void readHeaderPageInfo(char *buffer, struct HeaderPageInfo hpi){
 	hpi.NbPageDeDonnees = strtol(buffer,NULL,10);
 	hpi.tableauCouples.IdxPage = malloc(sizeof(char)*hpi.NbPageDeDonnees);
-	for(int i =0, j=0; i<hpi.NbPageDeDonnees || j<hpi.NbPageDeDonnees; i++, j+2){
-		hpi.tableauCouples.IdxPage[i]=buffer[j];
-		hpi.tableauCouples.NbSlotsRestantDisponible[i]=buffer[j+1];
+	for(int i=0; i<hpi.NbPageDeDonnees; i++)
+	{
+		for(int j=0; j<hpi.NbPageDeDonnees; j+2)
+		{
+			hpi.tableauCouples.IdxPage[i]=buffer[j];
+			hpi.tableauCouples.NbSlotsRestantDisponible[i]=buffer[j+1];
+		}		
 	}
+	
 	free(buffer);
 }
 
@@ -90,9 +95,13 @@ void readHeaderPageInfo(char *buffer, struct HeaderPageInfo hpi){
  */
 void writeHeaderPageInfo(char *buffer, struct HeaderPageInfo hpi){
 	sprintf(buffer, "%d", hpi.NbPageDeDonnees);
-	for(int i =0, j=0; i<hpi.NbPageDeDonnees || j<hpi.NbPageDeDonnees; i++,j+2){
-		buffer[j]=hpi.tableauCouples.IdxPage[i];
-		buffer[j+1]=hpi.tableauCouples.NbSlotsRestantDisponible[i];
+	for(int i=0; i<hpi.NbPageDeDonnees; i++)
+	{
+		for(int j=0; j<hpi.NbPageDeDonnees; j+2)
+		{
+			buffer[j]=hpi.tableauCouples.IdxPage[i];
+			buffer[j+1]=hpi.tableauCouples.NbSlotsRestantDisponible[i];
+		}
 	}
 }
 
@@ -103,10 +112,8 @@ void writeHeaderPageInfo(char *buffer, struct HeaderPageInfo hpi){
  * Param HeaderPageInfo hpi : Header déjà instancié.
  */
 void getHeaderPageInfo(struct HeaderPageInfo hpi){
-	PageId idHeader = {0, 0};
-	getPage(idHeader);
 	readHeaderPageInfo(buffer_pool[0].buffer,hpi);
-	freePage(idHeader,'0');
+	freePage(buffer_pool[0].page,'0');
 }
 
 
@@ -117,13 +124,12 @@ void getHeaderPageInfo(struct HeaderPageInfo hpi){
  */
 
 void updateHeaderNewDataPage(PageId nwpage){
-	char *buffer = buffer_pool[0].buffer;
 	HeaderPageInfo hpi;
-	readHeaderPageInfo(buffer, hpi);
-	hpi.tableauCouples.IdxPage=nwpage.idX;
+	readHeaderPageInfo(buffer_pool[0].buffer, hpi);
+	hpi.NbPageDeDonnees++;
+	hpi.tableauCouples.IdxPage[hpi.NbPageDeDonnees]=nwpage.idX;
 	hpi.tableauCouples.NbSlotsRestantDisponible=listeHeapFile->present.ptrRelDef->SlotCount;
-	writeHeaderPageInfo(buffer, hpi);
-	free(buffer);
+	writeHeaderPageInfo(buffer_pool[0].buffer, hpi);
 }
 
 
@@ -135,7 +141,10 @@ void updateHeaderNewDataPage(PageId nwpage){
 
 void updateHeaderTakenSlot(PageId page){
 	HeaderPageInfo hpi;
-	char *buffer = buffer_pool[0].buffer;
-	readHeaderPageInfo(buffer, hpi);
-	hpi.tableauCouples.NbSlotsRestantDisponible--;
+	readHeaderPageInfo(buffer_pool[0].buffer, hpi);
+	for (int i = 0; i < hpi.NbPageDeDonnees; ++i)
+	{
+		if(hpi.tableauCouples.IdxPage[i]==page.idX)
+			hpi.tableauCouples.NbSlotsRestantDisponible[i]--;
+	}
 }

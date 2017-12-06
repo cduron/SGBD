@@ -21,9 +21,8 @@ typedef struct ListeHeapFile{
 /* Liste chaîné des références des pages et du nombre de slots disponibles */
 typedef struct TabCouples TabCouples;
 struct TabCouples{
-	int  IdxPage;
-	int NbSlotsRestantDisponible;
-    struct TabCouples *nxt;
+	int  *IdxPage;
+	int *NbSlotsRestantDisponible;
 };
 
 /* Création de la structure HeaderPageInfo */
