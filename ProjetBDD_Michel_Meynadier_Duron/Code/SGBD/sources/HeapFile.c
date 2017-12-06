@@ -253,7 +253,7 @@ void insertRecordInPage (struct Record rec, PageId page){
  *
  */
 void insertRecord (struct Record rec, struct ListeHeapFile lhpf){
-	lhpf.present.ptrRelDef->
+	//lhpf.present.ptrRelDef->Schema
 	PageId page = getFreePageId();
 	insertRecordInPage(rec, page);
 }
