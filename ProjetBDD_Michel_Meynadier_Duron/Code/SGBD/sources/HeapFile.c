@@ -197,4 +197,30 @@ PageId addDataPage(){
 	newPage.idX = addPage(0);
 	newPage.fileId=0;
 	updateHeaderNewDataPage(newPage);
+	return (newPage);
+}
+
+
+/*
+ * Fonction getFreePageId : Recherche une PageId dans laquelle il reste des slots disponibles
+ */
+PageId getFreePageId(){
+	HeaderPageInfo hpi;
+	int idX=-5;
+	getHeaderPageInfo(hpi);
+	for(int i=0; i<hpi.NbPageDeDonnees; i++){
+		if(hpi.tableauCouples.NbSlotsRestantDisponible[i]!=0){
+			idX = hpi.tableauCouples.IdxPage[i];
+		}
+	}
+	if(idX<0){
+		PageId pge = addDataPage();
+		return(pge);
+	} else {
+		PageId pge;
+		pge.idX = idX;
+		pge.fileId=0;
+		return(pge);
+	}
+
 }

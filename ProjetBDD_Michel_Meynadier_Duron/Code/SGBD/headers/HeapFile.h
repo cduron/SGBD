@@ -68,4 +68,6 @@ void writeRecordInBuffer(struct Record rec, char *buffer, int offset);
 /* Ajoute une page de données */
 PageId addDataPage();
 
+/* Recherche une PageId dans laquelle il reste des slots disponibles */
+PageId getFreePageId();
 #endif /* HeapFile_H_ */
