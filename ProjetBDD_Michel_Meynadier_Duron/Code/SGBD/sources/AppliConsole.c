@@ -25,10 +25,16 @@ void traitementConsole(char *commande){
 			printf("Erreur d'affectation");
 		}
 	}
-	strcpy(c2,commande+(nbLettreAvantSeparateur(s,commande)));
+	strcpy(c2,commande);
+	printf("C2 :  %s\n",c2);
+	//int nbLettre = nbLettreAvantSeparateur(s,c2);
+	//printf("Commande :  %s\n",commande);
+	//strcpy(c2,commande+nbLettre);
+	//printf("C2 :  %s\n",c2);
 
 
-	char *token;
+
+	/*char *token;
 	//token prend la valeur du premier mot de la chaîne commande [Opérateur]
 	token = strtok(commande,s);
 
@@ -47,7 +53,8 @@ void traitementConsole(char *commande){
 		char * nomRelation = token;
 
 		//Puis on fait le insert avec comme liste de Valeurs la suite de la chaîne commande
-		strcpy(c3,c2+strlen(token)+1);
+
+		fflush(stdout);		strcpy(c3,c2+strlen(token)+1);
 		insert(nomRelation,c3);
 		free(c3);
 	}
@@ -56,7 +63,7 @@ void traitementConsole(char *commande){
 		if (strcmp(token,"exit")==0){
 		}
 
-	}
-	free(c2);
+	}*/
+	//free(c2);
 
 }

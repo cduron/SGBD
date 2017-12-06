@@ -35,10 +35,16 @@ int main(){
 		}
     printf("NULL\n");
 	//createHeader(hf);*/
-
-	char commande[80] = "insert nomrel 556566 va2123123l2 val3";
+	printf("Bienvenue dans notre superbe BDD.\nSaisissez votre requête!\n");
+	fflush(stdout);
+	char *commande;
+	while(commande==NULL){
+		commande=malloc(sizeof(char)*500);
+		if(commande==NULL)
+			printf("Erreur affectation");
+	}
+	gets(commande);
 	traitementConsole(commande);
-	printf("%s\n", commande);
 	return(0);
 
 }
