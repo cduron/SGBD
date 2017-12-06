@@ -252,7 +252,8 @@ void insertRecordInPage (struct Record rec, PageId page){
  * param lhpf : liste de HeapFile
  *
  */
-void insertRecord (struct Record rec,struct ListeHeapFile lhpf){
+void insertRecord (struct Record rec, struct ListeHeapFile lhpf){
+	lhpf.present.ptrRelDef->
 	PageId page = getFreePageId();
 	insertRecordInPage(rec, page);
 }
