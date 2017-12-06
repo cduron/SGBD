@@ -70,4 +70,7 @@ PageId addDataPage();
 
 /* Recherche une PageId dans laquelle il reste des slots disponibles */
 PageId getFreePageId();
+
+/* Ecrit le record dans la page */
+void insertRecordInPage (struct Record rec, PageId page);
 #endif /* HeapFile_H_ */

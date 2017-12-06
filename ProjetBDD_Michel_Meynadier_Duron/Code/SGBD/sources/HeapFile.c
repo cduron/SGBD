@@ -224,3 +224,24 @@ PageId getFreePageId(){
 	}
 
 }
+
+/*
+ * Fonction insertRecordInPage : Ecrit le record dans la page
+ */
+void insertRecordInPage (struct Record rec, PageId page){
+	getPage(page);
+	PageBitmapInfo pbi;
+	char * buffer = malloc(sizeof(char)*TAILLE);
+	readPageBitmapInfo(buffer,pbi);
+	int idX =-5;
+	for(int i=0; i<strlen(pbi.SlotStatus) && idX>0;i++){
+		if(pbi.SlotStatus[i]==0){
+			idX = i;
+		}
+	}
+	writeRecordInBuffer(rec, buffer,listeHeapFile->present.ptrRelDef->SlotCount+idX*listeHeapFile->present.ptrRelDef->RecordSize);
+	pbi.SlotStatus[idX]=1;
+	writePageBitmapInfo(buffer,pbi);
+	freePage(page,1);
+
+}
