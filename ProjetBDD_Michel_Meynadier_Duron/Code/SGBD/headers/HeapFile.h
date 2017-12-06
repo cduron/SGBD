@@ -27,13 +27,15 @@ struct TabCouples{
 
 /* Création de la structure HeaderPageInfo */
 typedef struct HeaderPageInfo {
-	/* */
-  	int NbPageDeDonnees;
-  	/* */
+	int NbPageDeDonnees;
   	struct TabCouples tableauCouples;
 }HeaderPageInfo;
 
 
+/* Création de la structure PageBitmapInfo */
+typedef struct PageBitmapInfo {
+	char *SlotStatus;
+}PageBitmapInfo;
 
 /* Permet d'ajouter en fin de liste de HeapFile un HeapFile */
 void ajouterEnFin(ListeHeapFile *liste, HeapFile hf);
@@ -50,9 +52,13 @@ void writeHeaderPageInfo(char *buffer, struct HeaderPageInfo hpi);
 /* */
 void getHeaderPageInfo(struct HeaderPageInfo hpi);
 
-
 /* */
 void updateHeaderNewDataPage(PageId nwpage);
 
+/* Remplit la liste dans la PageBitmapInfo avec les informations dans la bitmap du buffer */
+void readPageBitmapInfo(char *buffer, struct PageBitmapInfo pbi);
+
+/* écrit  au début du buffer la bitmap donnée par la liste d’octets de la PageBitmapInfo */
+void writePageBitmapInfo(char *buffer, struct PageBitmapInfo pbi);
 
 #endif /* HeapFile_H_ */

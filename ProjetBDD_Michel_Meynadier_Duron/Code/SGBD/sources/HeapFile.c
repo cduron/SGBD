@@ -17,6 +17,9 @@ frame buffer_pool[F];
 // Declaration de listeHeapFile qui est une liste chainee d'elements de type HeapFile
 struct ListeHeapFile *listeHeapFile;
 
+
+// Création de la page BitmapInfo
+struct pageBitmapInfo pbi;
 /*
  * Fonction createHeader : Création d'une HeaderPage
  * Param HeapFile hf : HeapFile
@@ -147,4 +150,24 @@ void updateHeaderTakenSlot(PageId page){
 		if(hpi.tableauCouples.IdxPage[i]==page.idX)
 			hpi.tableauCouples.NbSlotsRestantDisponible[i]--;
 	}
+}
+
+/*
+ * Fonction readPageBitmapInfo : remplit la liste dans la PageBitmapInfo avec les informations dans la bitmap du buffer
+ * param buffer : Page de données en format buffer
+ * param PageBitmapInfo : page bitmap info à remplir
+ *
+ */
+void readPageBitmapInfo(char *buffer, struct PageBitmapInfo pbi){
+
+}
+
+/*
+ * Fonction writePageBitmapInfo : qui écrit  au début du buffer la bitmap donnée par la liste d’octets de la PageBitmapInfo.
+ * param buffer : Page de données en format buffer
+ * param PageBitmapInfo : page bitmap info à remplir
+ *
+ */
+void writePageBitmapInfo(char *buffer, struct PageBitmapInfo pbi){
+
 }
