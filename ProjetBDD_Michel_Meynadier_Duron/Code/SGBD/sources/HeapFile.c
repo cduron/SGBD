@@ -11,6 +11,7 @@
 #include "../headers/PageId.h"
 #include "../headers/GlobalManager.h"
 #include "../headers/Constante.h"
+#include "../headers/Record.h"
 
 frame buffer_pool[F];
 
@@ -174,4 +175,15 @@ void writePageBitmapInfo(char *buffer, struct PageBitmapInfo pbi){
 	for(int i=0; i<listeHeapFile->present.ptrRelDef->SlotCount; i++){
 			buffer[i]=pbi.SlotStatus[i];
 		}
+}
+
+
+/*
+ * Fonction writeRecordInBuffer :  écrit les champs du record à l’offset indiqué par l’argument
+ * param buffer : page en format buffer
+ * param offset : position
+ *
+ */
+void writeRecordInBuffer(struct Record rec, char *buffer, int offset){
+
 }

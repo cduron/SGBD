@@ -2,6 +2,7 @@
 #define Heapfile_H_
 
 #include "PageId.h"
+#include "Record.h"
 
 /* Structure Heapfile listant les relations existantes dans la DB */
 typedef struct HeapFile {
@@ -58,7 +59,10 @@ void updateHeaderNewDataPage(PageId nwpage);
 /* Remplit la liste dans la PageBitmapInfo avec les informations dans la bitmap du buffer */
 void readPageBitmapInfo(char *buffer, struct PageBitmapInfo pbi);
 
-/* écrit  au début du buffer la bitmap donnée par la liste d’octets de la PageBitmapInfo */
+/* Ecrit  au début du buffer la bitmap donnée par la liste d’octets de la PageBitmapInfo */
 void writePageBitmapInfo(char *buffer, struct PageBitmapInfo pbi);
+
+/* Ecrit les champs du record à l’offset indiqué par l’argument */
+void writeRecordInBuffer(struct Record rec, char *buffer, int offset);
 
 #endif /* HeapFile_H_ */
