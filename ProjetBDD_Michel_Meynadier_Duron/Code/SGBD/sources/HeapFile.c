@@ -19,7 +19,7 @@ struct ListeHeapFile *listeHeapFile;
 
 
 // Création de la page BitmapInfo
-struct pageBitmapInfo pbi;
+struct PageBitmapInfo pbi;
 /*
  * Fonction createHeader : Création d'une HeaderPage
  * Param HeapFile hf : HeapFile
@@ -158,8 +158,10 @@ void updateHeaderTakenSlot(PageId page){
  * param PageBitmapInfo : page bitmap info à remplir
  *
  */
-void readPageBitmapInfo(char *buffer, struct PageBitmapInfo pbi){
-
+void readPageBitmapInfo(char *buffer, PageBitmapInfo pbi){
+	for(int i=0; i<listeHeapFile->present.ptrRelDef->SlotCount; i++){
+		pbi.SlotStatus[i]=buffer[i];
+	}
 }
 
 /*
@@ -169,5 +171,7 @@ void readPageBitmapInfo(char *buffer, struct PageBitmapInfo pbi){
  *
  */
 void writePageBitmapInfo(char *buffer, struct PageBitmapInfo pbi){
-
+	for(int i=0; i<listeHeapFile->present.ptrRelDef->SlotCount; i++){
+			buffer[i]=pbi.SlotStatus[i];
+		}
 }
