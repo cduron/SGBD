@@ -32,6 +32,16 @@ struct DbDef {
 	int compteurRelations;
 };
 
+/* Creer une relation, c'est a dire une structure de type RelDef */
+void createRelation(char *nomRelation, int nombreColonnes, char *typesDesColonnes);
+
+/* Créer un fichier "Catalog.def" et ecrit le contenu de dbDef1 dans ce fichier */
+int finish();
+
+/* Pour chaque relation existante dans la BDD creer une structure HeapFile correspondante et l'ajoute a
+ * la liste listHeapFile.*/
+void refreshHeapFiles();
+
 /* Fonction insert */
 void insert (char * nomRelation, char * listeValeurs);
 
